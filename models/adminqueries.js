@@ -125,3 +125,12 @@ exports.postAdminRegister = async (email, username, hash, phone) => {
     throw err;
   }
 };
+
+exports.getAllTrips = async ()=>{
+  try{
+    const [result]= await db.query("Select * from  trips ");
+     return result;
+  }catch(err){
+    throw err;
+  }
+};
