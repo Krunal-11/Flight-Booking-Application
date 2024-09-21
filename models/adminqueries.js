@@ -71,7 +71,7 @@ exports.putAirplanes = async (data, id) => {
   try {
     const [result] = await db.query(
       "UPDATE airplanes SET airplane_name=?, number_of_seats=? WHERE airplane_id=?",
-      [data.airplane_name, data.number_of_seats, id]
+      [data.airplane_name, data.number_of_seats,id]
     );
     return result;
   } catch (err) {
@@ -81,10 +81,9 @@ exports.putAirplanes = async (data, id) => {
 
 exports.deleteAirplanes = async (id) => {
   try {
-    const [result] = await db.query(
-      "DELETE FROM airplanes where airplane_id=?",
-      [id]
-    );
+    const [result] = await db.query("DELETE FROM airplanes where airplane_id=?", [
+      id,
+    ]);
     return result;
   } catch (err) {
     throw err;
@@ -120,7 +119,7 @@ exports.postAdminRegister = async (email, username, hash, phone) => {
       [email, username, hash, phone, 1]
     );
     //console.log(result);
-    //return result;`
+    //return result;
   } catch (err) {
     //console.log(err);
     throw err;
@@ -177,13 +176,6 @@ exports.putTrip = async (data, tripId) => {  //details must contain airplane_nam
 
     return result;
 
-exports.postAdminLogin = async (username) => {
-  try {
-    const result = await db.query(
-      "Select * from users where username = ? and role = ?",
-      [username, 1]
-    );
-    return result;
   } catch (err) {
     throw err;
   }
@@ -212,17 +204,3 @@ exports.getAllBookings = async () => {
   }
 };
 
-exports.putUpdateAdmin = async (id, email, username, password, phone) => {
-  try {
-    //console.log(id + email + username + password + phone);
-
-    await db.query(
-      `UPDATE users 
-                SET email = ?, username = ?, password = ?,phone = ?
-                WHERE user_id = ? AND role = 1`,
-      [email, username, password, phone, id]
-    );
-  } catch (err) {
-    throw err;
-  }
-};
