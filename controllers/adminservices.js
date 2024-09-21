@@ -1,7 +1,7 @@
 const adminModel = require("../models/adminqueries");
 
 const bcrypt = require("bcrypt");
-const { sign, verify } = require("jsonwebtoken");
+const { createtoken } = require("../middleware/jwt");
 
 exports.getLocations = async (req, res) => {
   try {
@@ -85,7 +85,6 @@ exports.deleteAirplanes = async (req, res) => {
   }
 };
 
-
 exports.getAllAdmins = async (req, res) => {
   try {
     const result = await adminModel.getAllAdmins();
@@ -121,34 +120,73 @@ exports.postAdminRegister = async (req, res) => {
   }
 };
 
-
-
-
-exports.getAllTrips = async(req,res)=>{
-  try{
-  const result = await adminModel.getAllTrips();
-  res.send(result);
-  }catch(err){
+exports.getAllTrips = async (req, res) => {
+  try {
+    const result = await adminModel.getAllTrips();
+    res.send(result);
+  } catch (err) {
     res.status(500).send(err);
   }
-}
+};
 
-exports.putTrip= async(req,res)=>{
+exports.putTrip = async (req, res) => {
   const data = req.body;
   const id = req.params.id;
   try {
-    const result = await adminModel.putTrip(data,id);
+    const result = await adminModel.putTrip(data, id);
     res.status(201).send("data updated successfully");
   } catch (err) {
     res.send(err);
   }
-}
+};
 
-exports.getAllBookings = async (req,res)=>{
-  try{
+exports.getAllBookings = async (req, res) => {
+  try {
     const result = await adminModel.getAllBookings();
     res.send(result);
-  }catch(err){
+  } catch (err) {
     res.send(err);
   }
-}
+};
+exports.postAdminLogin = async (req, res) => {
+  const { username, password } = req.body;
+  console.log(req.body);
+  try {
+    const [user] = await adminModel.postAdminLogin(username);
+
+    if (!user) {
+      return res.status(400).send("Admin doesn't exist");
+    }
+
+    const dbpassword = user[0].password;
+    const match = await bcrypt.compare(password, dbpassword);
+    if (!match) {
+      return res.status(400).send("Password is incorrect");
+    }
+
+    const token = createtoken(user[0]);
+    res.cookie("admin-token", token, {
+      maxAge: 60 * 60 * 24 * 30 * 1000,
+    });
+    console.log("login success");
+    res.status(200).send("login success !");
+  } catch (err) {
+    res.status(500).send("Invalid credentials");
+  }
+};
+
+exports.putUpdateAdmin = async (req, res) => {
+  const id = req.params.id;
+  const { email, username, password, phone } = req.body;
+
+  if (!username || !password || !email || !phone) {
+    return res.status(400).send("All fields are required");
+  }
+  try {
+    let hash = await bcrypt.hash(password, 10);
+    await adminModel.putUpdateAdmin(id, email, username, hash, phone);
+    res.send("the details have updated");
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};

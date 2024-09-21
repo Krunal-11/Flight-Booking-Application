@@ -1,18 +1,16 @@
-const express = require('express')
+const express = require("express");
 const app = express();
-const adminroutes = require('./routes/adminroutes')
-const userroutes = require('./routes/userroutes')
+const adminroutes = require("./routes/adminroutes");
+const userroutes = require("./routes/userroutes");
+const cookieParser = require("cookie-parser");
 
-
+// Middleware setup
+app.use(cookieParser());
 
 app.use(express.json());
-app.use('/api/admin',adminroutes);
+app.use("/api/admin", adminroutes);
 //app.use('/api/user',userroutes)
 
-
-
-
-
-app.listen(8080, ()=>{
-    console.log('app live at http://localhost:8080/');
-})
+app.listen(8080, () => {
+  console.log("app live at http://localhost:8080/");
+});
