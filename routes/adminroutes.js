@@ -13,5 +13,7 @@ router.delete("/airplanes/:id", adminServices.deleteAirplanes);
 
 
 router.get("/view-admins", adminServices.getAllAdmins);
+router.get("/view-users", adminServices.getAllUsers);
+router.post("/register", adminServices.postAdminRegister);
 
 module.exports = router;

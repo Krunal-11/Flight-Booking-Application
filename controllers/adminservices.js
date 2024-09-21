@@ -1,5 +1,8 @@
 const adminModel = require("../models/adminqueries");
 
+const bcrypt = require("bcrypt");
+const { sign, verify } = require("jsonwebtoken");
+
 exports.getLocations = async (req, res) => {
   try {
     const data = await adminModel.getLocations();
@@ -89,5 +92,31 @@ exports.getAllAdmins = async (req, res) => {
     res.send(result);
   } catch (err) {
     res.status(500).send(err);
+  }
+};
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    const result = await adminModel.getAllUsers();
+    res.send(result);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
+exports.postAdminRegister = async (req, res) => {
+  const { email, username, password, phone } = req.body;
+  try {
+    let hash = await bcrypt.hash(password, 10);
+
+    await adminModel.postAdminRegister(email, username, hash, phone);
+
+    return res.send("admin registered !");
+  } catch (err) {
+    if (err.code === "ER_DUP_ENTRY") {
+      return res.status(400).send("Username or email already exists.");
+    }
+    console.error(err);
+    return res.status(500).send("Internal server error.");
   }
 };

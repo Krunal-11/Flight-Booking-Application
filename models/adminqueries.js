@@ -100,3 +100,28 @@ exports.getAllAdmins = async () => {
     throw err;
   }
 };
+
+exports.getAllUsers = async () => {
+  try {
+    const [result] = await db.query("Select * from users where role = ?", [2]);
+    //console.log(result);
+    return result;
+  } catch (err) {
+    //console.log(err);
+    throw err;
+  }
+};
+
+exports.postAdminRegister = async (email, username, hash, phone) => {
+  try {
+    const [result] = await db.query(
+      "INSERT INTO users(email, username, password, phone, role) VALUES (?, ?, ?, ?, ?)",
+      [email, username, hash, phone, 1]
+    );
+    //console.log(result);
+    //return result;
+  } catch (err) {
+    //console.log(err);
+    throw err;
+  }
+};
