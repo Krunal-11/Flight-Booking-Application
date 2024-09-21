@@ -62,3 +62,16 @@ exports.getAllBookings = async (email) => {
     throw err;
   }
 };
+
+exports.postSearchFlights = async (
+  departure_loc_id,
+  arrival_loc_id,
+  trip_date
+) => {
+  try {
+    const [result] = db.query();
+    return result[0];
+  } catch (err) {
+    throw err;
+  }
+};

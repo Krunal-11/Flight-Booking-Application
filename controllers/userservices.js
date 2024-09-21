@@ -79,3 +79,17 @@ exports.getAllBookings = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+exports.postSearchFlights = async (req, res) => {
+  const { departure_loc_id, arrival_loc_id, trip_date } = req.body;
+  try {
+    const result = await userModel.postSearchFlights(
+      departure_loc_id,
+      arrival_loc_id,
+      trip_date
+    );
+    res.send(result);
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
