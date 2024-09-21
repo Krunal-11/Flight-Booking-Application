@@ -143,3 +143,12 @@ exports.putTrip= async(req,res)=>{
     res.send(err);
   }
 }
+
+exports.getAllBookings = async (req,res)=>{
+  try{
+    const result = await adminModel.getAllBookings();
+    res.send(result);
+  }catch(err){
+    res.send(err);
+  }
+}

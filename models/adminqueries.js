@@ -180,3 +180,27 @@ exports.putTrip = async (data, tripId) => {
     throw err;
   }
 };
+
+
+exports.getAllBookings = async () => {
+  try {
+    const [result] = await db.query(`
+      SELECT 
+        b.booking_id,
+        b.email,
+        b.trip_id,
+        b.booking_date,a.airplane_name, dl.airport_name AS departure_location,al.airport_name AS arrival_location,t.departure_time, t.arrival_time, t.trip_date
+      FROM bookings b
+      JOIN trips t ON b.trip_id = t.trip_id
+      JOIN locations dl ON t.departure_loc_id = dl.loc_id
+      JOIN locations al ON t.arrival_loc_id = al.loc_id
+      JOIN airplanes a ON t.airplane_id = a.airplane_id ORDER BY b.booking_date DESC;
+    `);
+    
+    return result; 
+  } catch (error) {
+    console.error('Error fetching bookings:', error);
+    throw error; 
+  }
+};
+

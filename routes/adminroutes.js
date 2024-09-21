@@ -22,4 +22,8 @@ router.get('/trips',adminServices.getAllTrips);
 router.put('/trips/:id',adminServices.putTrip);
 
 
+
+router.get('/booking',adminServices.getAllBookings);
+
+
 module.exports = router;
