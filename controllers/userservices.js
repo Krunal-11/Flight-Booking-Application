@@ -1,7 +1,7 @@
 const userModel = require("../models/userqueries");
 
 exports.getUserByEmail = async (req, res) => {
-    const email = req.params.email; // Assuming you're using middleware to attach user info to the request
+    const email = req.params.email; 
   
     try {
       const user = await userModel.getUserByEmail(email); 
@@ -19,7 +19,7 @@ exports.getUserByEmail = async (req, res) => {
 
 
   exports.getAllBookings= async (req, res) => {
-    const email = req.user.email; // Assuming you're using middleware to attach user info to the request
+    const email = req.params.email; 
   
     try {
       const bookings = await userModel.getAllBookings(email);
