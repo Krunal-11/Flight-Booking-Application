@@ -34,3 +34,13 @@ exports.putLocations = async(data,id)=>{
         throw err;
     }
 }
+
+exports.deleteLocations = async(id)=>{
+    try{
+        const [result] = await db.query('DELETE FROM locations where loc_id=?',[id]);
+        return result;
+    }
+    catch(err){
+        throw err;
+    }
+}

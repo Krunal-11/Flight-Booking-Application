@@ -32,3 +32,14 @@ exports.putLocations = async (req,res)=>{
         res.send(err);
     }
 }
+
+exports.deleteLocations = async (req,res)=>{
+    const id = req.params.id;
+    try{
+        const result = await adminModel.deleteLocations(id);
+        res.send(' deleted successfully');
+    }
+    catch(err){
+        res.send(err);
+    }
+}
