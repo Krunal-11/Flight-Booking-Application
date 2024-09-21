@@ -1,11 +1,17 @@
 const express = require('express')
 const app = express();
-const db = require('./db')
+const adminroutes = require('./routes/adminroutes')
+const userroutes = require('./routes/userroutes')
 
 
-app.get('/',(req,res)=>{
-    res.send('test sucessful');
-})
+
+app.use(express.json());
+app.use('/api/admin',adminroutes);
+//app.use('/api/user',userroutes)
+
+
+
+
 
 app.listen(8080, ()=>{
     console.log('app live at http://localhost:8080/');
