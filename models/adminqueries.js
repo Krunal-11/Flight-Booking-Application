@@ -135,7 +135,7 @@ exports.getAllTrips = async ()=>{
   }
 };
 
-exports.putTrip = async (data, tripId) => {
+exports.putTrip = async (data, tripId) => {  //details must contain airplane_name, dept_airportname, arrivl_airportname instead of their ids
   try {
 
     const [airplaneResult] = await db.query(
