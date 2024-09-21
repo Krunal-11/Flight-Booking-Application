@@ -24,3 +24,13 @@ exports.postLocations = async (data)=>{
     }
 
 }
+
+exports.putLocations = async(data,id)=>{
+    try{
+        const [result] = await db.query('UPDATE locations SET airport_name=?, city_name=?,iata_code=? WHERE loc_id=?',[data.airport_name,data.city_name,data.iata_code,id]);
+        return result;
+    }
+    catch(err){
+        throw err;
+    }
+}

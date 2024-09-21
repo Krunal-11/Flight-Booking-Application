@@ -19,3 +19,16 @@ exports.postLocations = async (req,res)=>{
         res.send(err);
     }
 }
+
+exports.putLocations = async (req,res)=>{
+    const id = req.params.id;
+    const data = req.body;
+    console.log(id);
+    try{
+        const result = await adminModel.putLocations(data,id);
+        res.send('data updated successfully');
+    }
+    catch(err){
+        res.send(err);
+    }
+}
