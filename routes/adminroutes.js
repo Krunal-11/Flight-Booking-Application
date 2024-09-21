@@ -18,6 +18,8 @@ router.post("/register", adminServices.postAdminRegister);
 
 
 
-router.get('/view-trips',adminServices.getAllTrips);
+router.get('/trips',adminServices.getAllTrips);
+router.put('/trips/:id',adminServices.putTrip);
+
 
 module.exports = router;

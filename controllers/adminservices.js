@@ -132,3 +132,14 @@ exports.getAllTrips = async(req,res)=>{
     res.status(500).send(err);
   }
 }
+
+exports.putTrip= async(req,res)=>{
+  const data = req.body;
+  const id = req.params.id;
+  try {
+    const result = await adminModel.putTrip(data,id);
+    res.status(201).send("data updated successfully");
+  } catch (err) {
+    res.send(err);
+  }
+}
