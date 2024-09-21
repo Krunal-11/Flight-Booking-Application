@@ -8,8 +8,8 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
 app.use(express.json());
-app.use('/api/admin',adminroutes);
-app.use('/api/user',userroutes)
+app.use("/api/admin", adminroutes);
+app.use("/api/user", userroutes);
 
 app.listen(8080, () => {
   console.log("app live at http://localhost:8080/");

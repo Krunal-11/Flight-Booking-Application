@@ -12,20 +12,18 @@ router.post("/airplanes", adminServices.postAirplanes);
 router.put("/airplanes/:id", adminServices.putAirplanes);
 router.delete("/airplanes/:id", adminServices.deleteAirplanes);
 
-router.get("/view-admins", middleware_admin, adminServices.getAllAdmins);
+//admin users table crud - start
+router.get("/view-admins", adminServices.getAllAdmins);
 router.get("/view-users", adminServices.getAllUsers);
-
 router.post("/register", adminServices.postAdminRegister);
 router.post("/login", adminServices.postAdminLogin);
+router.put("/update-admin/:id", adminServices.putUpdateAdmin);
+router.delete("/delete-admin/:id", adminServices.putDeleteAdmin);
+//admin users table crud - end
 
+router.get("/trips", adminServices.getAllTrips);
+router.put("/trips/:id", adminServices.putTrip);
 
-
-router.get('/trips',adminServices.getAllTrips);
-router.put('/trips/:id',adminServices.putTrip);
-
-
-
-router.get('/booking',adminServices.getAllBookings);
-
+router.get("/booking", adminServices.getAllBookings);
 
 module.exports = router;

@@ -1,8 +1,15 @@
 const express = require("express");
 const router = express.Router();
+
 const userServices = require("../controllers/userservices");
+const { middleware_user } = require("../middleware/jwt");
 
-router.get('/info/:email',userServices.getUserByEmail);
-router.get('/bookings/:email',userServices.getAllBookings);
+router.post("/register", middleware_user, userServices.postUserRegister);
+router.post("/login", userServices.postUserLogin);
+// router.put("/update-user/:id", userServices.putUpdateUser);
+// router.delete("/delete-user/:id", userServices.putDeleteUser);
 
-module.exports = router;    
+router.get("/info/:email", userServices.getUserByEmail);
+router.get("/bookings/:email", userServices.getAllBookings);
+
+module.exports = router;

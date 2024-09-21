@@ -85,6 +85,37 @@ exports.deleteAirplanes = async (req, res) => {
   }
 };
 
+exports.getAllTrips = async (req, res) => {
+  try {
+    const result = await adminModel.getAllTrips();
+    res.send(result);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
+exports.putTrip = async (req, res) => {
+  const data = req.body;
+  const id = req.params.id;
+  try {
+    const result = await adminModel.putTrip(data, id);
+    res.status(201).send("data updated successfully");
+  } catch (err) {
+    res.send(err);
+  }
+};
+
+exports.getAllBookings = async (req, res) => {
+  try {
+    const result = await adminModel.getAllBookings();
+    res.send(result);
+  } catch (err) {
+    res.send(err);
+  }
+};
+
+// admin crud on the users table -- start
+
 exports.getAllAdmins = async (req, res) => {
   try {
     const result = await adminModel.getAllAdmins();
@@ -120,34 +151,6 @@ exports.postAdminRegister = async (req, res) => {
   }
 };
 
-exports.getAllTrips = async (req, res) => {
-  try {
-    const result = await adminModel.getAllTrips();
-    res.send(result);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-};
-
-exports.putTrip = async (req, res) => {
-  const data = req.body;
-  const id = req.params.id;
-  try {
-    const result = await adminModel.putTrip(data, id);
-    res.status(201).send("data updated successfully");
-  } catch (err) {
-    res.send(err);
-  }
-};
-
-exports.getAllBookings = async (req, res) => {
-  try {
-    const result = await adminModel.getAllBookings();
-    res.send(result);
-  } catch (err) {
-    res.send(err);
-  }
-};
 exports.postAdminLogin = async (req, res) => {
   const { username, password } = req.body;
   console.log(req.body);
@@ -190,3 +193,16 @@ exports.putUpdateAdmin = async (req, res) => {
     res.status(500).send(err);
   }
 };
+
+exports.putDeleteAdmin = async (req, res) => {
+  const id = req.params.id;
+  try {
+    await adminModel.putDeleteAdmin(id);
+    res.send("the admin is deleated !");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err);
+  }
+};
+
+// admin crud on the users table -- end

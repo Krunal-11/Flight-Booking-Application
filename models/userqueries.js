@@ -1,19 +1,45 @@
 const db = require("../config/db");
 
+exports.postUserRegister = async (email, username, hash, phone) => {
+  try {
+    const [result] = await db.query(
+      "INSERT INTO users(email, username, password, phone, role) VALUES (?, ?, ?, ?, ?)",
+      [email, username, hash, phone, 2]
+    );
+  } catch (err) {
+    throw err;
+  }
+};
+
+exports.postUserLogin = async (username) => {
+  try {
+    const result = await db.query(
+      "Select * from users where username = ? and role = ?",
+      [username, 2]
+    );
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
 
 exports.getUserByEmail = async (email) => {
-    // console.log(email);
-    try {
-      const [result] = await db.query('SELECT user_id, username, email, phone, role FROM users WHERE email = ?', [email]);
-      return result.length > 0 ? result[0] : null; 
-    } catch (err) {
-      throw err; 
-    }
-  };
+  // console.log(email);
+  try {
+    const [result] = await db.query(
+      "SELECT user_id, username, email, phone, role FROM users WHERE email = ?",
+      [email]
+    );
+    return result.length > 0 ? result[0] : null;
+  } catch (err) {
+    throw err;
+  }
+};
 
-  exports.getAllBookings = async (email) => {
-    try {
-      const [result] = await db.query(`
+exports.getAllBookings = async (email) => {
+  try {
+    const [result] = await db.query(
+      `
         SELECT 
           b.booking_date,
           dl.airport_name AS departure_location,
@@ -27,10 +53,12 @@ exports.getUserByEmail = async (email) => {
         JOIN locations al ON t.arrival_loc_id = al.loc_id
         WHERE b.email = ?
         ORDER BY b.booking_date DESC;
-      `, [email]);
-      
-      return result; 
-    } catch (err) {
-      throw err; 
-    }
-  };
+      `,
+      [email]
+    );
+
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
