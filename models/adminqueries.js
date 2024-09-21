@@ -45,6 +45,51 @@ exports.deleteLocations = async (id) => {
   }
 };
 
+exports.getAirplanes = async () => {
+  const query = "SELECT * from airplanes";
+  try {
+    const [data] = await db.query(query);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+exports.postAirplanes = async (data) => {
+  try {
+    const [result] = await db.query(
+      "INSERT INTO airplanes(airplane_name, number_of_seats) VALUES (?,?)",
+      [data.airplane_name, data.number_of_seats]
+    );
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
+
+exports.putAirplanes = async (data, id) => {
+  try {
+    const [result] = await db.query(
+      "UPDATE airplanes SET airplane_name=?, number_of_seats=? WHERE airplane_id=?",
+      [data.airplane_name, data.number_of_seats,id]
+    );
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
+
+exports.deleteAirplanes = async (id) => {
+  try {
+    const [result] = await db.query("DELETE FROM airplanes where airplane_id=?", [
+      id,
+    ]);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
+
 exports.getAllAdmins = async () => {
   try {
     const [result] = await db.query("Select * from users where role = ?", [1]);
