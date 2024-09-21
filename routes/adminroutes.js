@@ -16,4 +16,8 @@ router.get("/view-admins", adminServices.getAllAdmins);
 router.get("/view-users", adminServices.getAllUsers);
 router.post("/register", adminServices.postAdminRegister);
 
+
+
+router.get('/view-trips',adminServices.getAllTrips);
+
 module.exports = router;
