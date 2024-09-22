@@ -144,6 +144,16 @@ exports.putTrip = async (data, tripId) => {  //details must contain airplane_nam
 }
 };
 
+
+exports.deleteTrip = async (id)=>{
+  try{
+    const [result]= await db.query("delete from trips where trip_id = ?",[id]);
+    return result;
+  }catch(err){
+    throw err;
+  }
+}
+
 exports.getAllBookings = async () => {
   try {
     const [result] = await db.query(`

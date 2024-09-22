@@ -105,6 +105,16 @@ exports.putTrip = async (req, res) => {
   }
 };
 
+exports.deleteTrip = async (req,res)=>{
+  const id = req.params.id;
+  try{
+    const result = await adminModel.deleteTrip(id);
+    res.status(200).send("trip deleted Successfully");
+  }catch(err){
+    res.send(err);
+  }
+}
+
 exports.getAllBookings = async (req, res) => {
   try {
     const result = await adminModel.getAllBookings();

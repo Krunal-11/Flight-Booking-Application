@@ -23,6 +23,9 @@ router.delete("/delete-admin/:id", adminServices.putDeleteAdmin);
 
 router.get("/trips", adminServices.getAllTrips);
 router.put("/trips/:id", adminServices.putTrip);
+router.delete('/trip/:id',adminServices.deleteTrip);
+
+
 
 router.get("/booking", adminServices.getAllBookings);
 
