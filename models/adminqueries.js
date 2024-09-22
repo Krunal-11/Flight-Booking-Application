@@ -100,44 +100,49 @@ exports.getAllTrips = async () => {
   }
 };
 
-// exports.putTrip = async (data, tripId) => {  //details must contain airplane_name, dept_airportname, arrivl_airportname instead of their ids
-//   try {
+exports.putTrip = async (data, tripId) => {  //details must contain airplane_name, dept_airportname, arrivl_airportname instead of their ids
+  try {
 
-//     const [airplaneResult] = await db.query(
-//       "SELECT airplane_id FROM airplanes WHERE airplane_name = ?",
-//       [data.airplane_name]
-//     );
+    const [airplaneResult] = await db.query(
+      "SELECT airplane_id FROM airplanes WHERE airplane_name = ?",
+      [data.airplane_name]
+    );
 
-//     if (airplaneResult.length === 0) {
-//       throw new Error(`Airplane "${data.airplane_name}" not found`);
-//     }
-//     const airplane_id = airplaneResult[0].airplane_id;
+    if (airplaneResult.length === 0) {
+      throw new Error(`Airplane "${data.airplane_name}" not found`);
+    }
+    const airplane_id = airplaneResult[0].airplane_id;
 
-//     const [departureResult] = await db.query(
-//       "SELECT loc_id FROM locations WHERE airport_name = ?",
-//       [data.departure_location_name]
-//     );
-//     const [arrivalResult] = await db.query(
-//       "SELECT loc_id FROM locations WHERE airport_name = ?",
-//       [data.arrival_location_name]
-//     );
+    const [departureResult] = await db.query(
+      "SELECT loc_id FROM locations WHERE airport_name = ?",
+      [data.departure_location_name]
+    );
+    const [arrivalResult] = await db.query(
+      "SELECT loc_id FROM locations WHERE airport_name = ?",
+      [data.arrival_location_name]
+    );
 
-//     if (departureResult.length === 0) {
-//       throw new Error(`Departure location "${data.departure_location_name}" not found`);
-//     }
-//     if (arrivalResult.length === 0) {
-//       throw new Error(`Arrival location "${data.arrival_location_name}" not found`);
-//     }
+    if (departureResult.length === 0) {
+      throw new Error(`Departure location "${data.departure_location_name}" not found`);
+    }
+    if (arrivalResult.length === 0) {
+      throw new Error(`Arrival location "${data.arrival_location_name}" not found`);
+    }
 
-//     const departure_loc_id = departureResult[0].loc_id;
-//     const arrival_loc_id = arrivalResult[0].loc_id;
+    const departure_loc_id = departureResult[0].loc_id;
+    const arrival_loc_id = arrivalResult[0].loc_id;
 
-//     const [result] = await db.query(
-//       `UPDATE trips SET  airplane_id = ?, departure_loc_id = ?, arrival_loc_id = ?,   number_of_seats_filled = ?, number_of_empty_seats = ?, departure_time = ?, arrival_time = ?,  trip_date = ?,  price = ?,  flight_status = ?,  delay_hours = ?,  trip_duration = ?  WHERE trip_id = ?`,
-//       [ airplane_id,  departure_loc_id,  arrival_loc_id, data.number_of_seats_filled, data.number_of_empty_seats, data.departure_time,  data.arrival_time, data.trip_date, data.price,data.flight_status, data.delay_hours,  data.trip_duration,  tripId ]
-//     );
+    const [result] = await db.query(
+      `UPDATE trips SET  airplane_id = ?, departure_loc_id = ?, arrival_loc_id = ?,   number_of_seats_filled = ?, number_of_empty_seats = ?, departure_time = ?, arrival_time = ?,  trip_date = ?,  price = ?,  flight_status = ?,  delay_hours = ?,  trip_duration = ?  WHERE trip_id = ?`,
+      [ airplane_id,  departure_loc_id,  arrival_loc_id, data.number_of_seats_filled, data.number_of_empty_seats, data.departure_time,  data.arrival_time, data.trip_date, data.price,data.flight_status, data.delay_hours,  data.trip_duration,  tripId ]
+    );
 
-//     return result;
+    return result;
+} catch (error) {
+  console.error('Error updating trip:', error);
+  throw error;
+}
+};
 
 exports.getAllBookings = async () => {
   try {
