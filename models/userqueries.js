@@ -66,11 +66,15 @@ exports.getAllBookings = async (email) => {
 exports.postSearchFlights = async (
   departure_loc_id,
   arrival_loc_id,
-  trip_date
+  trip_date,
+  number_of_people
 ) => {
   try {
-    const [result] = db.query();
-    return result[0];
+    const result = db.query(
+      "SELECT t.*, ld.airport_name AS airportName, la.city_name AS cityName FROM trips t JOIN locations ld ON t.departure_loc_id = ld.loc_id JOIN locations la ON t.arrival_loc_id = la.loc_id WHERE t.departure_loc_id = ? AND t.arrival_loc_id = ? AND t.trip_date = ? AND t.number_of_empty_seats >= ?",
+      [departure_loc_id, arrival_loc_id, trip_date, number_of_people]
+    );
+    return result;
   } catch (err) {
     throw err;
   }

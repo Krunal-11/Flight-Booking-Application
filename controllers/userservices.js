@@ -81,14 +81,16 @@ exports.getAllBookings = async (req, res) => {
 };
 
 exports.postSearchFlights = async (req, res) => {
-  const { departure_loc_id, arrival_loc_id, trip_date } = req.body;
+  const { departure_loc_id, arrival_loc_id, trip_date, number_of_people } =
+    req.body;
   try {
     const result = await userModel.postSearchFlights(
       departure_loc_id,
       arrival_loc_id,
-      trip_date
+      trip_date,
+      number_of_people
     );
-    res.send(result);
+    res.send(result[0]);
   } catch (err) {
     res.status(500).json({ message: "Server error" });
   }
