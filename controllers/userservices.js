@@ -93,3 +93,19 @@ exports.postSearchFlights = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+
+
+// exports.checkout = async(req,res)=>{
+//   const email = req.params.email;
+//   const data = req.body;
+//   try{
+//     const result = await userModel.checkout(data,email);
+//     //data-> number of traverllers,trip id
+//     //need to update count of seats filled, number of seats empty, send traveller info ahead to checkout page and after confirmation api is called it should be inserted into db,
+
+//   }
+//   catch(err){
+//     res.send(err);
+//   }
+// }

@@ -12,4 +12,6 @@ router.post("/search-flights", userServices.postSearchFlights);
 router.get("/info/:email", userServices.getUserByEmail);
 router.get("/bookings/:email", userServices.getAllBookings);
 
+router.post("/checkout/:email",userServices.checkout)
+
 module.exports = router;
