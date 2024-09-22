@@ -8,6 +8,7 @@ router.post("/register", middleware_user, userServices.postUserRegister);
 router.post("/login", userServices.postUserLogin);
 
 router.post("/search-flights", userServices.postSearchFlights);
+router.get("/search-flights/:id", userServices.postSearchFlightsID);
 
 router.get("/info/:email", userServices.getUserByEmail);
 router.get("/bookings/:email", userServices.getAllBookings);
