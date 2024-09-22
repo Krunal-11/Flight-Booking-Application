@@ -71,8 +71,20 @@ exports.postSearchFlights = async (
 ) => {
   try {
     const result = db.query(
-      "SELECT t.*, ld.airport_name AS airportName, la.city_name AS cityName FROM trips t JOIN locations ld ON t.departure_loc_id = ld.loc_id JOIN locations la ON t.arrival_loc_id = la.loc_id WHERE t.departure_loc_id = ? AND t.arrival_loc_id = ? AND t.trip_date = ? AND t.number_of_empty_seats >= ?",
+      "SELECT t.*, ld.airport_name AS airportName,ld.iata_code, la.city_name AS cityName FROM trips t JOIN locations ld ON t.departure_loc_id = ld.loc_id JOIN locations la ON t.arrival_loc_id = la.loc_id WHERE t.departure_loc_id = ? AND t.arrival_loc_id = ? AND t.trip_date = ? AND t.number_of_empty_seats >= ?",
       [departure_loc_id, arrival_loc_id, trip_date, number_of_people]
+    );
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
+
+exports.postSearchFlightsID = async (id) => {
+  try {
+    const result = db.query(
+      "SELECT t.*, ld.airport_name AS airportName,ld.iata_code, la.city_name AS cityName, ap.airplane_name AS airplaneName, ap.number_of_seats AS TotalseatesOnPlain FROM trips t JOIN locations ld ON t.departure_loc_id = ld.loc_id JOIN locations la ON t.arrival_loc_id = la.loc_id JOIN airplanes ap ON t.airplane_id = ap.airplane_id WHERE t.trip_id=?",
+      [id]
     );
     return result;
   } catch (err) {
