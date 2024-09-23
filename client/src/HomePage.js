@@ -13,7 +13,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: '8px',
     backgroundColor: '#ffffff', 
   },
-}));
+}}));
 
 const HomePage = () => {
   const classes = useStyles();
