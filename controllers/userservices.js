@@ -10,7 +10,14 @@ exports.postUserRegister = async (req, res) => {
 
     await userModel.postUserRegister(email, username, hash, phone);
 
-    return res.send("user registered !");
+    const [user] = await userModel.postUserLogin(username);
+
+    const token = createtoken(user[0]);
+
+    return res.status(201).json({
+      message: "User registered!",
+      token, // Send the token back for automatic login
+    });
   } catch (err) {
     if (err.code === "ER_DUP_ENTRY") {
       return res.status(400).send("Username or email already exists.");
@@ -34,13 +41,17 @@ exports.postUserLogin = async (req, res) => {
     if (!match) {
       return res.status(400).send("Password is incorrect");
     }
+    //console.log(user[0]);
 
     const token = createtoken(user[0]);
     res.cookie("user-token", token, {
       maxAge: 60 * 60 * 24 * 30 * 1000,
     });
     console.log("login success");
-    res.status(200).send("login success user !");
+    return res.status(200).json({
+      message: 'Login successful',
+      token, // Send the token back
+    });
   } catch (err) {
     res.status(500).send("Invalid credentials");
   }

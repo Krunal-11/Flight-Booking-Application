@@ -1,29 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginRegisterPage from './LoginRegisterPage'; 
+import HomePage from './HomePage'; 
+
 
 function App() {
-  const [backendData, setBackendData] = useState([{}]);
-
-  useEffect(() => {
-    fetch("/api/test")
-      .then(response => response.json())
-      .then(data => setBackendData(data))
-      .catch(error => console.error("Error fetching data:", error));
-  }, []);
-
-  return (
-    <div>
-      <div>App</div>
-      <div>
-        {typeof backendData.users === 'undefined' ? (
-          <p>Loading data....</p>
-        ) : (
-          backendData.users.map((user, i) => (
-            <p key={i}>{user}</p>
-          ))
-        )}
-      </div>
-    </div>
-  );
+    return (
+        <Router>
+            <Routes>
+                <Route path="/login" element={<LoginRegisterPage />} />
+                <Route path="/home" element={<HomePage />} />
+                {/* Add other routes here */}
+            </Routes>
+        </Router>
+    );
 }
+
 
 export default App;

@@ -4,7 +4,7 @@ const router = express.Router();
 const userServices = require("../controllers/userservices");
 const { middleware_user } = require("../middleware/jwt");
 
-router.post("/register", middleware_user, userServices.postUserRegister);
+router.post("/register",  userServices.postUserRegister);
 router.post("/login", userServices.postUserLogin);
 
 router.post("/search-flights", userServices.postSearchFlights);
