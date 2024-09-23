@@ -11,6 +11,10 @@ app.use(express.json());
 app.use("/api/admin", adminroutes);
 app.use("/api/user", userroutes);
 
+app.get("/api/test",(req,res)=>{
+  res.json({"users":["krunal","keerthan","ramprasad","admin"]});
+})
+
 app.listen(8080, () => {
   console.log("app live at http://localhost:8080/");
 });

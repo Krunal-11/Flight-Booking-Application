@@ -3,6 +3,8 @@ const router = express.Router();
 const adminServices = require("../controllers/adminservices");
 const { middleware_admin } = require("../middleware/jwt");
 
+
+
 router.get("/locations", adminServices.getLocations);
 router.post("/locations", adminServices.postLocations);
 router.put("/locations/:id", adminServices.putLocations);

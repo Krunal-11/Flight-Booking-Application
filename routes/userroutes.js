@@ -13,7 +13,7 @@ router.get("/search-flights/:id/:people", userServices.postSearchFlightsID);
 router.get("/info/:email", userServices.getUserByEmail);
 router.get("/bookings/:email", userServices.getAllBookings);
 
-router.post("/checkout/:email",userServices.checkout);
+//router.post("/checkout/:email",userServices.checkout);
 router.post("/booking",userServices.postBooking)
 
 module.exports = router;
