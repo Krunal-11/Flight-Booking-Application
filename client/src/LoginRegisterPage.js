@@ -22,7 +22,6 @@ const LoginRegisterPage = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  // State to handle login and registration form inputs
   const [loginData, setLoginData] = useState({ username: '', password: '' });
   const [registerData, setRegisterData] = useState({
     username: '',
@@ -31,7 +30,6 @@ const LoginRegisterPage = () => {
     password: '',
   });
 
-  // Function to handle login API call
 const handleLogin = async () => {
   console.log('handleLogin called', loginData);
   try {
@@ -58,7 +56,6 @@ const handleLogin = async () => {
   }
 };
 
-// New function for handling login with parameters
 const handleLoginWithParams = async (username, password) => {
   console.log('handleLoginWithParams called', { username, password });
   try {
@@ -67,7 +64,7 @@ const handleLoginWithParams = async (username, password) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password }), // Use passed values
+      body: JSON.stringify({ username, password }), 
     });
 
     if (!response.ok) {
@@ -85,7 +82,6 @@ const handleLoginWithParams = async (username, password) => {
   }
 };
 
-// Updated handleRegister
 const handleRegister = async () => {
   try {
     const response = await fetch('http://localhost:8080/api/user/register', {
@@ -104,7 +100,6 @@ const handleRegister = async () => {
     const data = await response.text();
     console.log('Register successful:', data);
 
-    // Call the new login function with username and password
     await handleLoginWithParams(registerData.username, registerData.password);
   } catch (error) {
     console.error('Registration error:', error);
