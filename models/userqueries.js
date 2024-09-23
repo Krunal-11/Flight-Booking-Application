@@ -91,3 +91,14 @@ exports.postSearchFlightsID = async (id) => {
     throw err;
   }
 };
+
+
+exports.postBooking = async (data) =>{
+  try{
+    const result= db.query('INSERT INTO bookings (trip_id, user_id, email, booking_date) VALUES (?, ?, ?, NOW());',[data.trip_id,data.user_id,data.email]);
+    return result;
+  }
+  catch(err){
+    throw err;
+  }
+}

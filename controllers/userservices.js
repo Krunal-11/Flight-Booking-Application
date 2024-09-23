@@ -108,6 +108,17 @@ exports.postSearchFlightsID = async (req, res) => {
 };
 
 
+exports.postBooking = (req,res)=>{
+  const data = req.body;
+  try{
+    const [result] = userModel.postBooking(data);
+    res.send('booking added to booking table');
+  }
+  catch(err){
+    return err;
+  }
+}
+
 
 // exports.checkout = async(req,res)=>{
 //   const email = req.params.email;
