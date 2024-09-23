@@ -90,7 +90,10 @@ exports.postSearchFlights = async (req, res) => {
       trip_date,
       number_of_people
     );
-    res.send(result[0]);
+    res.send({
+      ...result[0],
+      number_of_people,
+    });
   } catch (err) {
     res.status(500).json({ message: "Server error" });
   }
@@ -98,10 +101,11 @@ exports.postSearchFlights = async (req, res) => {
 
 exports.postSearchFlightsID = async (req, res) => {
   const id = req.params.id;
+  const people = req.params.people;
 
   try {
     const result = await userModel.postSearchFlightsID(id);
-    res.send(result[0]);
+    res.send({ ...result[0], people });
   } catch (err) {
     res.status(500).json({ message: "Server error" });
   }
