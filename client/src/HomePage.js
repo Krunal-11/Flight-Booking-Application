@@ -75,6 +75,7 @@ function HomePage() {
           padding: 4,
           textAlign: "center",
           color: "#001e3c",
+          paddingTop: 15,
         }}
       >
         <Typography variant="h4" sx={{ marginBottom: 2 }}>
