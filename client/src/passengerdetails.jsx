@@ -13,7 +13,7 @@ function PassengerCard() {
   return (
     <Box
       sx={{
-        maxWidth: 500,
+        maxWidth: 5000,
         margin: "20px auto",
         padding: "20px",
         borderRadius: "10px",
@@ -30,7 +30,7 @@ function PassengerCard() {
         }}
       >
         <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-          Passenger 1
+          Passenger
         </Typography>
         <Typography variant="body2" color="textSecondary">
           ID:535
@@ -45,12 +45,10 @@ function PassengerCard() {
           <FormControlLabel value="female" control={<Radio />} label="Female" />
         </RadioGroup>
       </Box>
-
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mb: 3 }}>
-        <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-          Name should be as per government ID
-        </Typography>
-
+      <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+        Name should be as per government ID
+      </Typography>
+      <Box sx={{ display: "flex", flexDirection: "row", gap: 2, mb: 3 }}>
         <TextField
           label="First and Middle Name"
           variant="outlined"
@@ -65,7 +63,7 @@ function PassengerCard() {
         />
       </Box>
 
-      <Box sx={{ mb: 2 }}>
+      <Box sx={{ display: "flex", flexDirection: "row", gap: 2, mb: 3 }}>
         <TextField
           variant="outlined"
           label="Date of Birth"
@@ -73,8 +71,6 @@ function PassengerCard() {
           size="small"
           helperText="Please enter date of birth in (DD-MM-YYYY) format i.e. 25-04-1998"
         />
-      </Box>
-      <Box sx={{ mb: 2 }}>
         <TextField
           variant="outlined"
           label="Phone number"

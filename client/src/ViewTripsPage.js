@@ -18,7 +18,6 @@ import Nav from "./navbar";
 const steps = [
   "Home Page",
   "Select Your Ticket",
-  "Confirm Ticket",
   "Fill Details",
   "Payment",
   "Success",
