@@ -52,15 +52,22 @@ const ViewTripsPage = () => {
     // Handle booking logic (navigate to booking page with trip details)
     navigate('/booking', { state: { trip } });
   };
-
+  {trips.length === 0 && ( // Add this line here
+    <Typography variant="h6" align="center">
+      No Flights Available
+    </Typography>
+  )}
+  //if( trip)
   if (loading) return <Typography variant="h6">Loading trips...</Typography>;
   if (error) return <Typography variant="h6" color="error">{error}</Typography>;
 
   return (
+    
     <Container>
       <Typography variant="h4" align="center" gutterBottom>
         Available Trips
       </Typography>
+      {!trips.length && <Typography variant="h6" align="center">No flights available</Typography>}
       <Grid container spacing={2}>
         {trips.map((trip) => (
           <Grid item xs={12} md={6} key={trip.trip_id}> {/* Changed key to trip.trip_id */}

@@ -1,153 +1,76 @@
-import React, { useState } from 'react';
-import { Container, Grid, TextField, Button, Typography, Paper } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import axios from 'axios'; // For handling API calls
-import { useNavigate } from 'react-router-dom';
+INSERT INTO locations (airport_name, city_name, iata_code) VALUES
+('Indira Gandhi International Airport', 'Delhi', 'DEL'),
+('Chhatrapati Shivaji Maharaj International Airport', 'Mumbai', 'BOM'),
+('Kempegowda International Airport', 'Bengaluru', 'BLR'),
+('Chennai International Airport', 'Chennai', 'MAA'),
+('Netaji Subhas Chandra Bose International Airport', 'Kolkata', 'CCU'),
+('Rajiv Gandhi International Airport', 'Hyderabad', 'HYD'),
+('Sardar Vallabhbhai Patel International Airport', 'Ahmedabad', 'AMD'),
+('Pune International Airport', 'Pune', 'PNQ'),
+('Jaipur International Airport', 'Jaipur', 'JAI'),
+('Goa International Airport (Dabolim)', 'Goa', 'GOI'),
+('Cochin International Airport', 'Cochin', 'COK'),
+('Chaudhary Charan Singh International Airport', 'Lucknow', 'LKO'),
+('Trivandrum International Airport', 'Trivandrum', 'TRV'),
+('Mangalore International Airport', 'Mangaluru', 'IXE'),
+('Chandigarh Airport', 'Chandigarh', 'IXC'),
+('Visakhapatnam Airport', 'Visakhapatnam', 'VTZ'),
+('Lokpriya Gopinath Bordoloi International Airport', 'Patna', 'PAT'),
+('Devi Ahilya Bai Holkar Airport', 'Indore', 'IDR'),
+('Surat Airport', 'Surat', 'STV'),
+('Vadodara Airport', 'Vadodara', 'BDQ'),
+('Raja Bhoj International Airport', 'Bhopal', 'BHO'),
+('Swami Vivekananda Airport', 'Raipur', 'RPR'),
+('Biju Patnaik International Airport', 'Bhubaneswar', 'BBI'),
+('Jolly Grant Airport', 'Dehradun', 'DED'),
+('Sri Guru Ram Dass Jee International Airport', 'Amritsar', 'ATQ');
 
-const useStyles = makeStyles(() => ({
-  root: {
-    marginTop: '5rem',
-    padding: '2rem',
-  },
-  formSection: {
-    padding: '2rem',
-  },
-  formContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1.5rem',
-  },
-}));
+INSERT INTO airplanes (airplane_name, number_of_seats) VALUES
+('Boeing 737', 180),
+('Airbus A320', 180),
+('Boeing 777', 440),
+('Airbus A330', 300),
+('Boeing 787 Dreamliner', 240),
+('Airbus A350', 300),
+('Boeing 747', 660),
+('Embraer E195', 120),
+('Bombardier Q400', 78),
+('Airbus A321', 220),
+('Boeing 757', 200),
+('ATR 72', 70),
+('Boeing 767', 216),
+('Airbus A319', 140),
+('McDonnell Douglas MD-80', 150),
+('Boeing 737 MAX', 210),
+('Airbus A310', 280),
+('Sukhoi Superjet 100', 100),
+('Boeing 767-300', 218),
+('Airbus A220', 130);
 
-const LoginRegisterPage = () => {
-  const classes = useStyles();
-  const navigate = useNavigate(); // Initialize history for navigation
 
-  // State to handle login and registration form inputs
-  const [loginData, setLoginData] = useState({ username: '', password: '' });
-  const [registerData, setRegisterData] = useState({
-    username: '',
-    email: '',
-    phone: '',
-    password: '',
-  });
-
-  // Function to handle login API call
-  const handleLogin = async () => {
-    console.log('handleLogin called', loginData);
-    try {
-      const response = await fetch('http://localhost:8080/api/user/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(loginData),
-      });
-
-      // Check if the response is OK
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`HTTP error! Status: ${response.status}. Message: ${errorText}`);
-      }
-
-      const data = await response.json(); // Expecting JSON response now
-      console.log('Login successful:', data);
-
-      localStorage.setItem('userToken', data.token); 
-
-      navigate('/home');  // Adjust this to your actual route
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
-  // Function to handle registration API call
-  const handleRegister = async () => {
-    try {
-      const response = await axios.post('http://localhost:8080/api/user/register', registerData);
-
-      if (response.status !== 200) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      console.log('Register successful:', response.data); // This will be a string (e.g., "User registered successfully!")
-
-      // Now log in the user automatically
-      await handleLogin(); // This will use the data in loginData
-    } catch (error) {
-      console.error('Registration error:', error);
-    }
-  };
-
-  return (
-    <Container className={classes.root}>
-      <Grid container spacing={4}>
-        {/* Login Section */}
-        <Grid item xs={12} md={6}>
-          <Paper className={classes.formSection} elevation={3}>
-            <Typography variant="h5" gutterBottom>Login</Typography>
-            <form className={classes.formContainer} onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
-              <TextField
-                label="Username"
-                variant="outlined"
-                value={loginData.username}
-                onChange={(e) => setLoginData({ ...loginData, username: e.target.value })}
-                fullWidth
-              />
-              <TextField
-                label="Password"
-                type="password"
-                variant="outlined"
-                value={loginData.password}
-                onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
-                fullWidth
-              />
-              <Button variant="contained" color="primary" type="submit">Login</Button>
-            </form>
-          </Paper>
-        </Grid>
-
-        {/* Registration Section */}
-        <Grid item xs={12} md={6}>
-          <Paper className={classes.formSection} elevation={3}>
-            <Typography variant="h5" gutterBottom>Register</Typography>
-            <form className={classes.formContainer}>
-              <TextField
-                label="Username"
-                variant="outlined"
-                value={registerData.username}
-                onChange={(e) => setRegisterData({ ...registerData, username: e.target.value })}
-                fullWidth
-              />
-              <TextField
-                label="Email"
-                variant="outlined"
-                value={registerData.email}
-                onChange={(e) => setRegisterData({ ...registerData, email: e.target.value })}
-                fullWidth
-              />
-              <TextField
-                label="Phone Number"
-                variant="outlined"
-                value={registerData.phone}
-                onChange={(e) => setRegisterData({ ...registerData, phone: e.target.value })}
-                fullWidth
-              />
-              <TextField
-                label="Password"
-                type="password"
-                variant="outlined"
-                value={registerData.password}
-                onChange={(e) => setRegisterData({ ...registerData, password: e.target.value })}
-                fullWidth
-              />
-              <Button variant="contained" color="secondary" onClick={handleRegister}>Register</Button>
-            </form>
-          </Paper>
-        </Grid>
-      </Grid>
-    </Container>
-  );
-};
-
-export default LoginRegisterPage;
+INSERT INTO trips (airplane_id, departure_loc_id, arrival_loc_id, number_of_empty_seats, departure_time, arrival_time, trip_date, price, flight_status, trip_duration) VALUES
+(1, 1, 2, 180, '2024-09-25 10:00:00', '2024-09-25 12:00:00', '2024-09-25', 5000.00, 'scheduled', 120),  -- Delhi to Mumbai
+(2, 2, 3, 180, '2024-09-25 13:00:00', '2024-09-25 15:00:00', '2024-09-25', 4800.00, 'scheduled', 120),  -- Mumbai to Bengaluru
+(3, 3, 4, 440, '2024-09-25 09:30:00', '2024-09-25 12:00:00', '2024-09-25', 7000.00, 'scheduled', 150),  -- Bengaluru to Chennai
+(4, 4, 5, 300, '2024-09-26 08:00:00', '2024-09-26 11:00:00', '2024-09-26', 6000.00, 'scheduled', 180),  -- Chennai to Kolkata
+(5, 5, 6, 240, '2024-09-26 15:00:00', '2024-09-26 18:00:00', '2024-09-26', 6200.00, 'scheduled', 180),  -- Kolkata to Hyderabad
+(6, 6, 7, 300, '2024-09-27 14:00:00', '2024-09-27 17:00:00', '2024-09-27', 5900.00, 'scheduled', 180),  -- Hyderabad to Ahmedabad
+(7, 7, 8, 180, '2024-09-27 10:30:00', '2024-09-27 12:30:00', '2024-09-27', 4500.00, 'scheduled', 120),  -- Ahmedabad to Pune
+(8, 8, 9, 220, '2024-09-28 11:00:00', '2024-09-28 13:00:00', '2024-09-28', 4700.00, 'scheduled', 120),  -- Pune to Jaipur
+(9, 9, 10, 200, '2024-09-28 15:00:00', '2024-09-28 16:30:00', '2024-09-28', 3900.00, 'scheduled', 90),   -- Jaipur to Goa
+(10, 10, 11, 180, '2024-09-29 07:00:00', '2024-09-29 09:00:00', '2024-09-29', 5200.00, 'scheduled', 120),  -- Goa to Cochin
+(11, 11, 12, 300, '2024-09-29 13:30:00', '2024-09-29 15:30:00', '2024-09-29', 6500.00, 'scheduled', 120),  -- Cochin to Lucknow
+(12, 12, 13, 240, '2024-09-30 10:00:00', '2024-09-30 11:30:00', '2024-09-30', 5800.00, 'scheduled', 90),   -- Lucknow to Trivandrum
+(13, 13, 14, 70, '2024-09-30 16:00:00', '2024-09-30 18:00:00', '2024-09-30', 3600.00, 'scheduled', 120),  -- Trivandrum to Mangaluru
+(14, 14, 15, 78, '2024-10-01 08:30:00', '2024-10-01 09:30:00', '2024-10-01', 3100.00, 'scheduled', 60),   -- Mangaluru to Chandigarh
+(15, 15, 16, 120, '2024-10-01 14:30:00', '2024-10-01 16:00:00', '2024-10-01', 3800.00, 'scheduled', 90),   -- Chandigarh to Visakhapatnam
+(16, 16, 17, 100, '2024-10-02 12:00:00', '2024-10-02 13:30:00', '2024-10-02', 4500.00, 'scheduled', 90),   -- Visakhapatnam to Patna
+(17, 17, 18, 150, '2024-10-02 09:00:00', '2024-10-02 10:30:00', '2024-10-02', 4200.00, 'scheduled', 90),   -- Patna to Indore
+(18, 18, 19, 216, '2024-10-03 11:00:00', '2024-10-03 12:30:00', '2024-10-03', 3900.00, 'scheduled', 90),   -- Indore to Surat
+(19, 19, 20, 280, '2024-10-03 14:00:00', '2024-10-03 16:00:00', '2024-10-03', 4400.00, 'scheduled', 120),  -- Surat to Vadodara
+(20, 20, 1, 130, '2024-10-04 08:30:00', '2024-10-04 10:00:00', '2024-10-04', 5000.00, 'scheduled', 90),   -- Vadodara to Delhi
+(1, 2, 3, 180, '2024-10-04 15:00:00', '2024-10-04 17:00:00', '2024-10-04', 4800.00, 'scheduled', 120),  -- Delhi to Bengaluru
+(2, 3, 4, 220, '2024-10-05 09:30:00', '2024-10-05 11:00:00', '2024-10-05', 4700.00, 'scheduled', 90),   -- Bengaluru to Chennai
+(3, 4, 5, 300, '2024-10-05 16:00:00', '2024-10-05 19:00:00', '2024-10-05', 6200.00, 'scheduled', 180),  -- Chennai to Kolkata
+(4, 5, 6, 240, '2024-10-06 10:00:00', '2024-10-06 12:30:00', '2024-10-06', 5900.00, 'scheduled', 150),  -- Kolkata to Hyderabad
+(5, 6, 7, 300, '2024-10-06 15:30:00', '2024-10-06 18:00:00', '2024-10-06', 6200.00, 'scheduled', 180);  -- Hyderabad to Ahmedabad
