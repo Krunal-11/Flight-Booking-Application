@@ -9,6 +9,8 @@ const ViewTripsPage = () => {
   const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [numberOfPeople, setNumberOfPeople] = useState(null);
+
 
   // Extract search data from the location state
   const { departureLocation, arrivalLocation, departureDate, numberOfTickets } =
@@ -41,7 +43,8 @@ const ViewTripsPage = () => {
         const data = await response.json();
         console.log("data", data);
         console.log("data .trips is ", data.trips.trips);
-        setTrips(data.trips); // Set trips to the trips array from the response
+        setTrips(data.trips);
+        setNumberOfPeople(data.number_of_people);  
       } catch (err) {
         setError(err.message);
       } finally {
@@ -53,9 +56,9 @@ const ViewTripsPage = () => {
   }, [departureLocation, arrivalLocation, departureDate, numberOfTickets]);
 
   const handleBookTrip = (trip) => {
-    // Handle booking logic (navigate to booking page with trip details)
-    navigate("/booking", { state: { trip } });
-  };
+  navigate("/booking", { state: { trip, number_of_people:numberOfPeople } });
+};
+
 
   //if( trip)
   if (loading) return <Typography variant="h6">Loading trips...</Typography>;
