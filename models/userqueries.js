@@ -102,3 +102,12 @@ exports.postBooking = async (data) =>{
     throw err;
   }
 }
+
+exports.postTravellers = async(data)=>{
+  try{
+    const result = db.query('INSERT INTO travellers(name, age, gender, trip_id) VALUES (?,?,?,?);',[data.name, data.age,data.gender,data.trip_id])
+  }
+  catch(err){
+    throw err;
+  }
+}

@@ -139,6 +139,18 @@ exports.postBooking = (req,res)=>{
   }
 }
 
+exports.postTravellers = (req,res)=>{
+  const data = req.boady;
+  try{
+    const [result] = userModel.postTravellers(data);
+    console.log(result);
+    res.send(result);
+  }
+  catch(err){
+    return err;
+  }
+}
+
 
 // exports.checkout = async(req,res)=>{
 //   const email = req.params.email;
