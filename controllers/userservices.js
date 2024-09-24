@@ -92,6 +92,7 @@ exports.getAllBookings = async (req, res) => {
 };
 
 exports.postSearchFlights = async (req, res) => {
+  console.log('api called');
   const { departure_loc_id, arrival_loc_id, trip_date, number_of_people } =
     req.body;
   try {
@@ -101,9 +102,13 @@ exports.postSearchFlights = async (req, res) => {
       trip_date,
       number_of_people
     );
-    res.send({
-      ...result[0],
-      number_of_people,
+    // res.send({
+    //   ...result[0],
+    //   number_of_people,
+    // });
+    res.json({
+      trips:result[0],
+      number_of_people:number_of_people,
     });
   } catch (err) {
     res.status(500).json({ message: "Server error" });

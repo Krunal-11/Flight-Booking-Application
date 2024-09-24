@@ -7,13 +7,14 @@ const useStyles = makeStyles(() => ({
   root: {
     marginTop: '5rem',
     padding: '2rem',
-    backgroundColor: '#e0f7fa', 
+    backgroundColor: '#e0f7fa',
+  },
   searchContainer: {
     padding: '2rem',
     borderRadius: '8px',
-    backgroundColor: '#ffffff', 
+    backgroundColor: '#ffffff',
   },
-}}));
+}));
 
 const HomePage = () => {
   const classes = useStyles();
@@ -34,7 +35,7 @@ const HomePage = () => {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        setLocations(data); 
+        setLocations(data); // Assuming this returns an array of location objects
       } catch (error) {
         console.error('Error fetching locations:', error);
       }
@@ -45,7 +46,8 @@ const HomePage = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    navigate('/view-trips', { state: searchData });
+    console.log('navigating with data :',searchData)
+    navigate('/all-flights', { state: searchData });
   };
 
   return (
@@ -66,7 +68,7 @@ const HomePage = () => {
                     options={locations}
                     getOptionLabel={(option) => option.city_name}
                     onChange={(event, newValue) => 
-                      setSearchData({ ...searchData, departureLocation: newValue ? newValue.city_name : '' })
+                      setSearchData({ ...searchData, departureLocation: newValue ? newValue.loc_id : '' }) // Use loc_id instead of city_name
                     }
                     renderInput={(params) => (
                       <TextField {...params} label="Departure Location" variant="outlined" fullWidth />
@@ -78,7 +80,7 @@ const HomePage = () => {
                     options={locations}
                     getOptionLabel={(option) => option.city_name}
                     onChange={(event, newValue) => 
-                      setSearchData({ ...searchData, arrivalLocation: newValue ? newValue.city_name : '' })
+                      setSearchData({ ...searchData, arrivalLocation: newValue ? newValue.loc_id : '' }) // Use loc_id instead of city_name
                     }
                     renderInput={(params) => (
                       <TextField {...params} label="Arrival Location" variant="outlined" fullWidth />
@@ -87,25 +89,24 @@ const HomePage = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
-  label="Departure Date"
-  type="date"
-  variant="outlined"
-  fullWidth
-  InputLabelProps={{ shrink: true }}
+                    label="Departure Date"
+                    type="date"
+                    variant="outlined"
+                    fullWidth
+                    InputLabelProps={{ shrink: true }}
                     value={searchData.departureDate}
                     onChange={(e) => {
-                    const selectedDate = new Date(e.target.value);
-                    const today = new Date();
-                    today.setHours(0, 0, 0, 0); 
+                      const selectedDate = new Date(e.target.value);
+                      const today = new Date();
+                      today.setHours(0, 0, 0, 0);
 
-                    if (selectedDate >= today) {
-                    setSearchData({ ...searchData, departureDate: e.target.value });
-                    } else {
-                    alert("Please select a present or future date.");
-                        }
+                      if (selectedDate >= today) {
+                        setSearchData({ ...searchData, departureDate: e.target.value });
+                      } else {
+                        alert("Please select a present or future date.");
+                      }
                     }}
-                    />
-
+                  />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
