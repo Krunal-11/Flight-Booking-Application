@@ -62,8 +62,8 @@ const ViewTripsPage = () => {
   if (error) return <Typography variant="h6" color="error">{error}</Typography>;
 
   return (
-    
     <Container>
+      
       <Typography variant="h4" align="center" gutterBottom>
         Available Trips
       </Typography>
