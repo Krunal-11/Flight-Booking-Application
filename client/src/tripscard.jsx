@@ -1,10 +1,28 @@
 import React from "react";
 import { Card, Box, Typography, Button, Divider } from "@mui/material";
-
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
-function FlightCard() {
+function FlightCard({ trip }) {
+  // Destructure trip from props
+  const {
+    airportName,
+    arrival_loc_id,
+    arrival_time,
+    cityName,
+    delay_hours,
+    departure_loc_id,
+    departure_time,
+    flight_status,
+    iata_code,
+    number_of_empty_seats,
+    number_of_seats_filled,
+    price,
+    trip_date,
+    trip_duration,
+    trip_id,
+  } = trip; // Destructure necessary properties from trip
+
   return (
     <Card
       sx={{
@@ -25,7 +43,6 @@ function FlightCard() {
           alt="Airline"
           style={{ width: 60, height: 40, marginRight: "16px" }}
         />
-
         {/* Flight Details */}
         <Box sx={{ flexGrow: 1 }}>
           <Box container spacing={1} alignItems="center">
@@ -38,7 +55,7 @@ function FlightCard() {
                 }}
               >
                 <AccessTimeIcon sx={{ mr: 1, fontSize: 14 }} />
-                <Typography variant="body2">13h 20</Typography>
+                <Typography variant="body2">{trip_duration} min</Typography>
               </Box>
             </Box>
 
@@ -52,16 +69,26 @@ function FlightCard() {
                 }}
               >
                 <Box item xs={3} sx={{ textAlign: "left" }}>
-                  <Typography variant="h6">13:05</Typography>
+                  <Typography variant="h6">
+                    {new Date(departure_time).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </Typography>
                   <Typography variant="body2" color="textSecondary">
-                    BOM
+                    {iata_code}
                   </Typography>
                 </Box>
                 <FlightTakeoffIcon sx={{ mx: 1, fontSize: 18 }} />
                 <Box item xs={3} sx={{ textAlign: "right" }}>
-                  <Typography variant="h6">21:55</Typography>
+                  <Typography variant="h6">
+                    {new Date(arrival_time).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </Typography>
                   <Typography variant="body2" color="textSecondary">
-                    NCL
+                    {iata_code}
                   </Typography>
                 </Box>
               </Box>
@@ -74,7 +101,7 @@ function FlightCard() {
 
       <Box sx={{ textAlign: "center" }}>
         <Typography variant="h5" sx={{ fontWeight: "bold", marginBottom: 1 }}>
-          ₹37,249
+          ₹{price}
         </Typography>
         <Button variant="contained" color="primary" sx={{ borderRadius: 20 }}>
           Select →

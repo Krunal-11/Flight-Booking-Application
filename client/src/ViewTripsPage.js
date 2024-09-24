@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grid, Typography, Paper, Button } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
+import FlightCard from "./tripscard"; // Ensure you're importing the correct component
 
 const ViewTripsPage = () => {
   const location = useLocation();
@@ -10,7 +11,6 @@ const ViewTripsPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [numberOfPeople, setNumberOfPeople] = useState(null);
-
 
   // Extract search data from the location state
   const { departureLocation, arrivalLocation, departureDate, numberOfTickets } =
@@ -28,8 +28,8 @@ const ViewTripsPage = () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              departure_loc_id: departureLocation, // This should be the ID from the dropdown selection
-              arrival_loc_id: arrivalLocation, // This should be the ID from the dropdown selection
+              departure_loc_id: departureLocation,
+              arrival_loc_id: arrivalLocation,
               trip_date: departureDate,
               number_of_people: numberOfTickets,
             }),
@@ -39,12 +39,10 @@ const ViewTripsPage = () => {
         if (!response.ok) {
           throw new Error("Failed to fetch trips");
         }
-        console.log("state ", location.state);
+
         const data = await response.json();
-        console.log("data", data);
-        console.log("data .trips is ", data.trips.trips);
         setTrips(data.trips);
-        setNumberOfPeople(data.number_of_people);  
+        setNumberOfPeople(data.number_of_people);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -56,11 +54,9 @@ const ViewTripsPage = () => {
   }, [departureLocation, arrivalLocation, departureDate, numberOfTickets]);
 
   const handleBookTrip = (trip) => {
-  navigate("/booking", { state: { trip, number_of_people:numberOfPeople } });
-};
+    navigate("/booking", { state: { trip, number_of_people: numberOfPeople } });
+  };
 
-
-  //if( trip)
   if (loading) return <Typography variant="h6">Loading trips...</Typography>;
   if (error)
     return (
@@ -82,26 +78,7 @@ const ViewTripsPage = () => {
       <Grid container spacing={2}>
         {trips.map((trip) => (
           <Grid item xs={12} md={6} key={trip.trip_id}>
-            {" "}
-            {/* Changed key to trip.trip_id */}
-            <Paper elevation={3}>
-              <Typography variant="h6">{trip.airportName}</Typography>{" "}
-              {/* Use airportName for title */}
-              <Typography>
-                Departure: {new Date(trip.departure_time).toLocaleString()}
-              </Typography>
-              <Typography>
-                Arrival: {new Date(trip.arrival_time).toLocaleString()}
-              </Typography>
-              <Typography>Price: ₹{trip.price}</Typography>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => handleBookTrip(trip)}
-              >
-                Book Now
-              </Button>
-            </Paper>
+            <FlightCard trip={trip} /> {/* Pass the entire trip object here */}
           </Grid>
         ))}
       </Grid>
