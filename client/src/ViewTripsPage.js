@@ -9,7 +9,6 @@ import {
   Step,
   StepLabel,
   Paper,
-  Grid2,
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlightCard from "./tripscard";
@@ -167,7 +166,7 @@ const ViewTripsPage = () => {
           <Grid container spacing={2} display={"flex"} flexDirection={"column"}>
             {trips.map((trip) => (
               <Grid item xs={11.5} key={trip.trip_id}>
-                <FlightCard trip={trip} />
+                <FlightCard trip={trip} onBookTrip={handleBookTrip} />
               </Grid>
             ))}
           </Grid>

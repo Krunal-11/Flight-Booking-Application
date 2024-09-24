@@ -3,7 +3,7 @@ import { Card, Box, Typography, Button, Divider } from "@mui/material";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
-function FlightCard({ trip }) {
+function FlightCard({ trip, onBookTrip }) {
   // Destructure trip from props
   const { arrival_time, departure_time, iata_code, price, trip_duration } =
     trip; // Destructure necessary properties from trip
@@ -86,7 +86,12 @@ function FlightCard({ trip }) {
         <Typography variant="h5" sx={{ fontWeight: "bold", marginBottom: 1 }}>
           ₹{price}
         </Typography>
-        <Button variant="contained" color="primary" sx={{ borderRadius: 20 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ borderRadius: 20 }}
+          onClick={() => onBookTrip(trip)}
+        >
           Next →
         </Button>
       </Box>
