@@ -6,6 +6,9 @@ import {
   TextField,
   Autocomplete,
   Grid,
+  Card,
+  CardMedia,
+  CardContent,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -25,7 +28,57 @@ const useStyles = makeStyles(() => ({
     borderRadius: "8px",
     backgroundColor: "#ffffff",
   },
+  card: {
+    margin: "1rem",
+  },
 }));
+
+// Array of destinations with image URLs
+const destinations = [
+  {
+    title: "Delhi",
+    image:
+      "https://s3.india.com/travel/wp-content/uploads/2016/08/shutterstock-redfort1.jpg",
+  },
+  {
+    title: "Mumbai",
+    image: "https://media.timeout.com/images/105241451/1024/576/image.webp",
+  },
+  {
+    title: "Kashmir",
+    image:
+      "https://www.trekpanda.in/system/images/000/591/409/79d97f40c7cbd93e047c68147f2c9f09/x1200gt/praneet-kumar-H8dcf-v98mA-unsplash.jpg?1671953013",
+  },
+  {
+    title: "Jaipur",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/4/41/East_facade_Hawa_Mahal_Jaipur_from_ground_level_%28July_2022%29_-_img_01.jpg",
+  },
+  {
+    title: "Agra",
+    image:
+      "https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcR1zbN_KSGRBLlI6oxZRSg_x0niJLHXd-awGCZKfr3qGgGJeq624-tSOu3pvyGqZw5pMkvRvcDoq9s9z_iJfFeA-dNjA9uDmA-kgchoCg",
+  },
+  {
+    title: "Goa",
+    image:
+      "https://media.digitalnomads.world/wp-content/uploads/2021/02/20120605/goa.jpg",
+  },
+  {
+    title: "Kerala",
+    image:
+      "https://www.indiautentica.com/wp-content/webp-express/webp-images/uploads/2022/10/29ezcwtmtnm.jpg.webp",
+  },
+  {
+    title: "Udaipur",
+    image:
+      "https://www.thehosteller.com/_next/image/?url=https%3A%2F%2Fstatic.thehosteller.com%2Fhostel%2Fimages%2Fcover%20photo.jpg%2Fcover%20photo-1696914123916.jpg&w=3840&q=75",
+  },
+  {
+    title: "Rishikesh",
+    image: "https://realhappiness.org/images/laxman-jhula.jpg",
+  },
+];
 
 function HomePage() {
   const classes = useStyles();
@@ -271,6 +324,32 @@ function HomePage() {
             </Grid>
           </form>
         </Box>
+      </Box>
+
+      {/* Best Places To Visit Section */}
+      <Box sx={{ padding: 4, backgroundColor: "#e0f7fa" }}>
+        <Typography variant="h4" sx={{ marginBottom: 3, textAlign: "center" }}>
+          Best Places To Visit
+        </Typography>
+        <Grid container spacing={2}>
+          {destinations.map((destination, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Card className={classes.card}>
+                <CardMedia
+                  component="img"
+                  height="200"
+                  image={destination.image}
+                  alt={destination.title}
+                />
+                <CardContent>
+                  <Typography variant="h5" component="div">
+                    {destination.title}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
       </Box>
     </Box>
   );
