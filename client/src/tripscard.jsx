@@ -5,34 +5,17 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
 function FlightCard({ trip }) {
   // Destructure trip from props
-  const {
-    airportName,
-    arrival_loc_id,
-    arrival_time,
-    cityName,
-    delay_hours,
-    departure_loc_id,
-    departure_time,
-    flight_status,
-    iata_code,
-    number_of_empty_seats,
-    number_of_seats_filled,
-    price,
-    trip_date,
-    trip_duration,
-    trip_id,
-  } = trip; // Destructure necessary properties from trip
+  const { arrival_time, departure_time, iata_code, price, trip_duration } =
+    trip; // Destructure necessary properties from trip
 
   return (
     <Card
       sx={{
         display: "flex",
-        justifyContent: "space-between",
         padding: "16px",
-        alignItems: "center",
         borderRadius: 2,
         boxShadow: 3,
-        maxWidth: 500,
+        width: "100%", // Ensure the card takes the full width of the container
         margin: "0 auto",
         marginTop: 2,
       }}
@@ -68,7 +51,7 @@ function FlightCard({ trip }) {
                   gap: 5,
                 }}
               >
-                <Box item xs={3} sx={{ textAlign: "left" }}>
+                <Box sx={{ textAlign: "left", flexGrow: 1 }}>
                   <Typography variant="h6">
                     {new Date(departure_time).toLocaleTimeString([], {
                       hour: "2-digit",
@@ -80,7 +63,7 @@ function FlightCard({ trip }) {
                   </Typography>
                 </Box>
                 <FlightTakeoffIcon sx={{ mx: 1, fontSize: 18 }} />
-                <Box item xs={3} sx={{ textAlign: "right" }}>
+                <Box sx={{ textAlign: "right", flexGrow: 1 }}>
                   <Typography variant="h6">
                     {new Date(arrival_time).toLocaleTimeString([], {
                       hour: "2-digit",
@@ -99,12 +82,12 @@ function FlightCard({ trip }) {
 
       <Divider orientation="vertical" flexItem sx={{ mx: 2 }} />
 
-      <Box sx={{ textAlign: "center" }}>
+      <Box sx={{ textAlign: "center", flexShrink: 0 }}>
         <Typography variant="h5" sx={{ fontWeight: "bold", marginBottom: 1 }}>
           ₹{price}
         </Typography>
         <Button variant="contained" color="primary" sx={{ borderRadius: 20 }}>
-          Select →
+          Next →
         </Button>
       </Box>
     </Card>

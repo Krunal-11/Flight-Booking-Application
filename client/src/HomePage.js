@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  AppBar,
-  Toolbar,
   Typography,
   Button,
   Box,
@@ -10,11 +8,8 @@ import {
   Grid,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import AirlinesIcon from "@mui/icons-material/Airlines";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import MenuIcon from "@mui/icons-material/Menu";
-import PublicIcon from "@mui/icons-material/Public";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+
+import Nav from "./navbar";
 
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router-dom";
@@ -71,21 +66,7 @@ function HomePage() {
   return (
     <Box>
       {/* App Bar Section */}
-      <AppBar position="static" sx={{ backgroundColor: "#001e3c" }}>
-        <Toolbar>
-          <AirlinesIcon sx={{ fontSize: 35, marginRight: 1 }} />
-          <Typography variant="h6" sx={{ fontSize: 30, flexGrow: 1 }}>
-            AirIndia
-          </Typography>
-          <FavoriteIcon sx={{ marginLeft: 2 }} />
-          <PublicIcon sx={{ marginLeft: 2 }} />
-          <Button color="inherit" sx={{ marginLeft: 2 }}>
-            Log in
-          </Button>
-          <AccountCircleIcon sx={{ marginLeft: 2 }} />
-          <MenuIcon sx={{ marginLeft: 2 }} />
-        </Toolbar>
-      </AppBar>
+      <Nav />
 
       {/* Search Form Section */}
       <Box
