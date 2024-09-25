@@ -60,8 +60,8 @@ const Payments = () => {
   };
 
   const handleSubmit = async (event) => {
-     console.log("my trip :", trip);
-    navigate("/success", { state: {trip} });
+    console.log("my trip :", trip);
+    navigate("/success", { state: { trip } });
   };
 
   ///
@@ -90,7 +90,7 @@ const Payments = () => {
   }
 
   return (
-    <Box sx={{ padding: 0 }}>
+    <Box sx={{ padding: 0, background: "#FAF9F6" }}>
       <Nav />
       <Grid container spacing={1} sx={{ height: "100vh", paddingTop: 9 }}>
         <Grid
@@ -108,7 +108,7 @@ const Payments = () => {
             {" "}
             {/* Use flexGrow to make the Paper fill available space */}
             <Typography variant="h5" align="center" gutterBottom>
-              Ticket Booking Progress
+              Booking Progress
             </Typography>
             <Stepper activeStep={currentStep} orientation="vertical">
               {steps.map((label, index) => (
@@ -131,7 +131,7 @@ const Payments = () => {
         {/* Left Sidebar for Progress */}
         <Grid
           item
-          xs={2.5}
+          xs={2}
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -140,7 +140,7 @@ const Payments = () => {
           }}
         ></Grid>
         {/* Centered Trips Section */}
-        <Grid item xs={6}>
+        <Grid item xs={6.5}>
           <Pay />
         </Grid>
         {/* Right Info Section for Dos and Don'ts */}

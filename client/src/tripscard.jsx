@@ -64,7 +64,7 @@ function FlightCard({ trip, onBookTrip }) {
                 }}
               >
                 <Box sx={{ textAlign: "left", flexGrow: 1 }}>
-                  <Typography variant="h6">
+                  <Typography variant="h5">
                     {new Date(departure_time).toLocaleTimeString([], {
                       hour: "2-digit",
                       minute: "2-digit",
@@ -74,9 +74,9 @@ function FlightCard({ trip, onBookTrip }) {
                     {departureIataCode}
                   </Typography>
                 </Box>
-                <FlightTakeoffIcon sx={{ mx: 1, fontSize: 18 }} />
+                <FlightTakeoffIcon sx={{ mx: 1, fontSize: 28 }} />
                 <Box sx={{ textAlign: "right", flexGrow: 1 }}>
-                  <Typography variant="h6">
+                  <Typography variant="h5">
                     {new Date(arrival_time).toLocaleTimeString([], {
                       hour: "2-digit",
                       minute: "2-digit",

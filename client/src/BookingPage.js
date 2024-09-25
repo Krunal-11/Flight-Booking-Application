@@ -60,8 +60,8 @@ const ViewTripsPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-     navigate("/payment", { state: { trip, travelers } });
-  }
+    navigate("/payment", { state: { trip, travelers } });
+  };
   // Handle form submission
   // const handleSubmit = async (event) => {
   //   event.preventDefault();
@@ -118,7 +118,7 @@ const ViewTripsPage = () => {
   // }
 
   return (
-    <Box sx={{ padding: 0 }}>
+    <Box sx={{ padding: 0, background: "#FAF9F6" }}>
       <Nav />
       <Grid container spacing={1} sx={{ height: "100vh", paddingTop: 9 }}>
         <Grid
@@ -136,7 +136,7 @@ const ViewTripsPage = () => {
             {" "}
             {/* Use flexGrow to make the Paper fill available space */}
             <Typography variant="h5" align="center" gutterBottom>
-               Booking Progress
+              Booking Progress
             </Typography>
             <Stepper activeStep={currentStep} orientation="vertical">
               {steps.map((label, index) => (
@@ -159,7 +159,7 @@ const ViewTripsPage = () => {
         {/* Left Sidebar for Progress */}
         <Grid
           item
-          xs={2.5}
+          xs={2}
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -168,7 +168,7 @@ const ViewTripsPage = () => {
           }}
         ></Grid>
         {/* Centered Trips Section */}
-        <Grid item xs={6}>
+        <Grid item xs={6.5}>
           <Container>
             <Typography variant="h4" gutterBottom>
               Confirm Your Booking

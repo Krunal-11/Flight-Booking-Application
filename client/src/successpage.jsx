@@ -113,7 +113,7 @@ const Payments = () => {
   }
 
   return (
-    <Box sx={{ padding: 0 }}>
+    <Box sx={{ padding: 0, background: "#FAF9F6" }}>
       <Nav />
       <Grid container spacing={1} sx={{ height: "100vh", paddingTop: 9 }}>
         <Grid
@@ -154,7 +154,7 @@ const Payments = () => {
         {/* Left Sidebar for Progress */}
         <Grid
           item
-          xs={2.5}
+          xs={2}
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -163,7 +163,7 @@ const Payments = () => {
           }}
         ></Grid>
         {/* Centered Trips Section */}
-        <Grid item xs={6} sx={{ textAlign: "center" }}>
+        <Grid item xs={6.5} sx={{ textAlign: "center" }}>
           <h2>Thanks for choosing us !</h2>
           <h2>Have a safe journy</h2>
         </Grid>
