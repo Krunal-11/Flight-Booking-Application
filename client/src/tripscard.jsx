@@ -30,9 +30,13 @@ function FlightCard({ trip, onBookTrip }) {
     >
       <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/2/2e/British_Airways_Logo.svg"
+          src="/airindia.png"
           alt="Airline"
-          style={{ width: 60, height: 40, marginRight: "16px" }}
+          style={{
+            width: 60,
+            height: 60,
+            marginRight: "16px",
+          }}
         />
         {/* Flight Details */}
         <Box sx={{ flexGrow: 1 }}>

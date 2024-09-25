@@ -3,7 +3,20 @@ import { Box, Typography, Divider } from "@mui/material";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
-const FlightCard = () => {
+const FlightCard = ({ trip }) => {
+  const {
+    arrival_time,
+    departure_time,
+    departureCityName,
+    departureIataCode,
+    arrivalIataCode,
+    arrivalCityName,
+    price,
+    departureAirportName,
+    arrivalAirportName,
+    trip_duration,
+  } = trip;
+
   return (
     <Box
       p={2}
@@ -15,9 +28,13 @@ const FlightCard = () => {
     >
       <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
         <img
-          src=""
+          src="/airindia.png"
           alt="Airline"
-          style={{ width: 60, height: 40, marginRight: "16px" }}
+          style={{
+            width: 60,
+            height: 60,
+            marginRight: "16px",
+          }}
         />
 
         <Box sx={{ flexGrow: 1 }}>
@@ -31,7 +48,7 @@ const FlightCard = () => {
                 }}
               >
                 <AccessTimeIcon sx={{ mr: 1, fontSize: 14 }} />
-                <Typography variant="body2">13h 20</Typography>
+                <Typography variant="body2">{trip_duration} min</Typography>
               </Box>
             </Box>
 
@@ -45,16 +62,27 @@ const FlightCard = () => {
                 }}
               >
                 <Box item xs={3} sx={{ textAlign: "left" }}>
-                  <Typography variant="h6">13:05</Typography>
+                  <Typography variant="h6">
+                    {new Date(departure_time).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </Typography>
                   <Typography variant="body2" color="textSecondary">
-                    BOM
+                    {departureIataCode}
                   </Typography>
                 </Box>
                 <FlightTakeoffIcon sx={{ mx: 1, fontSize: 18 }} />
                 <Box item xs={3} sx={{ textAlign: "right" }}>
-                  <Typography variant="h6">21:55</Typography>
+                  <Typography variant="h6">
+                    {" "}
+                    {new Date(arrival_time).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </Typography>
                   <Typography variant="body2" color="textSecondary">
-                    NCL
+                    {arrivalIataCode}
                   </Typography>
                 </Box>
               </Box>
@@ -77,9 +105,14 @@ const FlightCard = () => {
         justifyContent="space-between"
       >
         <Box display="flex" flexDirection="row" justifyContent="space-between">
-          <Typography variant="body2">12:30</Typography>
+          <Typography variant="body2">
+            {new Date(departure_time).toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+          </Typography>
           <Typography variant="caption" color="textSecondary">
-            GWL Gwalior
+            {departureAirportName}
           </Typography>
         </Box>
         <Box
@@ -88,19 +121,30 @@ const FlightCard = () => {
           flexDirection="row"
           justifyContent="space-between"
         >
-          <Typography variant="body2">13:25</Typography>
+          <Typography variant="body2">
+            {new Date(arrival_time).toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+          </Typography>
           <Typography variant="caption" color="textSecondary">
-            DEL Indira Gandhi International
+            {arrivalAirportName}
           </Typography>
         </Box>
       </Box>
 
       <Box mt={2} display="flex" justifyContent="space-between">
         <Typography variant="caption" color="textSecondary">
-          Arrives: Thu, 26 Sep 2024
+          Arrives:{" "}
+          {new Date(arrival_time).toLocaleDateString("en-US", {
+            weekday: "short",
+            year: "numeric",
+            month: "short",
+            day: "2-digit",
+          })}
         </Typography>
         <Typography variant="caption" color="textSecondary">
-          Journey duration: 0h 55
+          Journey duration: {trip_duration} min
         </Typography>
       </Box>
     </Box>
