@@ -42,6 +42,7 @@ const Payments = () => {
   const navigate = useNavigate();
 
   const { trip, number_of_people } = location.state || {};
+  console.log("here:", trip);
   const [travelers, setTravelers] = useState(
     Array.from({ length: number_of_people }, () => ({
       name: "",

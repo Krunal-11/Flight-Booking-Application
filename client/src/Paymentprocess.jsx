@@ -42,6 +42,7 @@ const Payments = () => {
   const navigate = useNavigate();
 
   const { trip, number_of_people } = location.state || {};
+
   const [travelers, setTravelers] = useState(
     Array.from({ length: number_of_people }, () => ({
       name: "",
@@ -58,35 +59,10 @@ const Payments = () => {
     setTravelers(updatedTravelers);
   };
 
-  // Handle form submission
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-
-  //   try {
-  //     const response = await fetch(
-  //       "http://localhost:8080/api/user/travellers",
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(travelers),
-  //       }
-  //     );
-
-  //     if (!response.ok) {
-  //       throw new Error("Failed to submit traveler details");
-  //     }
-
-  //     // Navigate to the success page after booking is confirmed
-  //     navigate("/success", { state: { trip, travelers } });
-  //   } catch (error) {
-  //     console.error("Error submitting traveler details:", error);
-  //   }
-  // };
-  const handleSubmit = async(event) =>{
-    navigate('/sucess', {state:trip})
-  }
+  const handleSubmit = async (event) => {
+    // console.log("my trip :", trip);
+    navigate("/success", { state: trip });
+  };
 
   ///
   const [checked, setChecked] = useState({
@@ -99,10 +75,7 @@ const Payments = () => {
     setChecked({ ...checked, [event.target.name]: event.target.checked });
   };
 
-  const [trips, setTrips] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [numberOfPeople, setNumberOfPeople] = useState(null);
   const currentStep = 3; // Set this to track your current step dynamically
 
   if (error) {
