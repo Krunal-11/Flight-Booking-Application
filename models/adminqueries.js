@@ -10,6 +10,15 @@ exports.getLocations = async () => {
   }
 };
 
+exports.getLocationsByID = async (id) => {
+  try {
+    const [data] = await db.query("SELECT * from locations where loc_id=?",[id]);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 exports.postLocations = async (data) => {
   try {
     const [result] = await db.query(

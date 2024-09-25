@@ -58,32 +58,37 @@ const ViewTripsPage = () => {
     setTravelers(updatedTravelers);
   };
 
-  // Handle form submission
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event) =>{
     event.preventDefault();
+     navigate("/success", { state: { trip, travelers } });
+  }
+  // Handle form submission
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
 
-    try {
-      const response = await fetch(
-        "http://localhost:8080/api/user/travellers",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(travelers),
-        }
-      );
+  //   try {
+  //     const response = await fetch(
+  //       "http://localhost:8080/api/user/travellers",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(travelers),
+  //       }
+  //     );
 
-      if (!response.ok) {
-        throw new Error("Failed to submit traveler details");
-      }
+  //     if (!response.ok) {
+  //       throw new Error("Failed to submit traveler details");
+  //     }
+  
 
-      // Navigate to the success page after booking is confirmed
-      navigate("/success", { state: { trip, travelers } });
-    } catch (error) {
-      console.error("Error submitting traveler details:", error);
-    }
-  };
+  //     // Navigate to the success page after booking is confirmed
+  //     navigate("/success", { state: { trip, travelers } });
+  //   } catch (error) {
+  //     console.error("Error submitting traveler details:", error);
+  //   }
+  // };
 
   ///
   const [checked, setChecked] = useState({
@@ -237,14 +242,14 @@ const ViewTripsPage = () => {
                 </Grid>
               ))}
 
-              <Button
+              {/*<Button
                 variant="contained"
                 color="primary"
                 type="submit"
                 fullWidth
               >
                 Confirm Booking
-              </Button>
+              </Button>*/}
             </form>
           </Container>
         </Grid>

@@ -71,7 +71,21 @@ exports.postSearchFlights = async (
 ) => {
   try {
     const result = db.query(
-      "SELECT t.*, ld.airport_name AS airportName,ld.iata_code, la.city_name AS cityName FROM trips t JOIN locations ld ON t.departure_loc_id = ld.loc_id JOIN locations la ON t.arrival_loc_id = la.loc_id WHERE t.departure_loc_id = ? AND t.arrival_loc_id = ? AND t.trip_date = ? AND t.number_of_empty_seats >= ?",
+      `SELECT 
+        t.*, 
+        ld.airport_name AS departureAirportName, 
+        ld.iata_code AS departureIataCode, 
+        ld.city_name AS departureCityName,
+        la.airport_name AS arrivalAirportName, 
+        la.iata_code AS arrivalIataCode, 
+        la.city_name AS arrivalCityName
+      FROM trips t 
+      JOIN locations ld ON t.departure_loc_id = ld.loc_id 
+      JOIN locations la ON t.arrival_loc_id = la.loc_id 
+      WHERE t.departure_loc_id = ? 
+        AND t.arrival_loc_id = ? 
+        AND t.trip_date = ? 
+        AND t.number_of_empty_seats >= ?`,
       [departure_loc_id, arrival_loc_id, trip_date, number_of_people]
     );
     return result;
@@ -79,6 +93,7 @@ exports.postSearchFlights = async (
     throw err;
   }
 };
+
 
 exports.postSearchFlightsID = async (id) => {
   try {

@@ -62,6 +62,7 @@ const ViewTripsPage = () => {
         }
 
         const data = await response.json();
+        console.log('line:66',data.trips);
         setTrips(data.trips);
         setNumberOfPeople(data.number_of_people);
       } catch (err) {

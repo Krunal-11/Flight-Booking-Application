@@ -6,6 +6,7 @@ const { middleware_admin } = require("../middleware/jwt");
 
 
 router.get("/locations", adminServices.getLocations);
+router.get("/locations/:id", adminServices.getLocationsByID);
 router.post("/locations", adminServices.postLocations);
 router.put("/locations/:id", adminServices.putLocations);
 router.delete("/locations/:id", adminServices.deleteLocations);

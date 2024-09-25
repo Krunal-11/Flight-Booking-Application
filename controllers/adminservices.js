@@ -11,6 +11,15 @@ exports.getLocations = async (req, res) => {
     res.send(err);
   }
 };
+exports.getLocationsByID = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const data = await adminModel.getLocationsByID(id);
+    res.json(data);
+  } catch (err) {
+    res.send(err);
+  }
+};
 
 exports.postLocations = async (req, res) => {
   const data = req.body;
