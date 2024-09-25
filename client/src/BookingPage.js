@@ -60,7 +60,7 @@ const ViewTripsPage = () => {
 
   const handleSubmit = async (event) =>{
     event.preventDefault();
-     navigate("/success", { state: { trip, travelers } });
+     navigate("/payment", { state: { trip, travelers } });
   }
   // Handle form submission
   // const handleSubmit = async (event) => {
