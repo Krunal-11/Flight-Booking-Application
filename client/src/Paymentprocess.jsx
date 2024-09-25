@@ -60,8 +60,8 @@ const Payments = () => {
   };
 
   const handleSubmit = async (event) => {
-    // console.log("my trip :", trip);
-    navigate("/success", { state: trip });
+     console.log("my trip :", trip);
+    navigate("/success", { state: {trip} });
   };
 
   ///

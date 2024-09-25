@@ -23,10 +23,8 @@ import {
 } from "@mui/material";
 
 import { useLocation, useNavigate } from "react-router-dom";
-import FlightCard from "./tripscard";
 import Nav from "./navbar";
 import TicketDetails from "./tripdetails";
-import Pay from "./payment";
 
 // Step Labels for the Ticket Booking Process
 const steps = [
@@ -41,50 +39,50 @@ const Payments = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { trip, number_of_people } = location.state || {};
+  const { trip } = location.state || {};
   console.log("here:", trip);
-  const [travelers, setTravelers] = useState(
-    Array.from({ length: number_of_people }, () => ({
-      name: "",
-      age: "",
-      gender: "Male",
-      trip_id: trip.trip_id,
-    }))
-  );
+  // const [travelers, setTravelers] = useState(
+  //   Array.from({ length: number_of_people }, () => ({
+  //     name: "",
+  //     age: "",
+  //     gender: "Male",
+  //     trip_id: trip.trip_id,
+  //   }))
+  // );
 
   // Handle form field changes
-  const handleInputChange = (index, field, value) => {
-    const updatedTravelers = [...travelers];
-    updatedTravelers[index][field] = value;
-    setTravelers(updatedTravelers);
-  };
+  // const handleInputChange = (index, field, value) => {
+  //   const updatedTravelers = [...travelers];
+  //   updatedTravelers[index][field] = value;
+  //   setTravelers(updatedTravelers);
+  // };
 
   // Handle form submission
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
 
-    try {
-      const response = await fetch(
-        "http://localhost:8080/api/user/travellers",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(travelers),
-        }
-      );
+  //   try {
+  //     const response = await fetch(
+  //       "http://localhost:8080/api/user/travellers",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(travelers),
+  //       }
+  //     );
 
-      if (!response.ok) {
-        throw new Error("Failed to submit traveler details");
-      }
+  //     if (!response.ok) {
+  //       throw new Error("Failed to submit traveler details");
+  //     }
 
-      // Navigate to the success page after booking is confirmed
-      navigate("/success", { state: { trip, travelers } });
-    } catch (error) {
-      console.error("Error submitting traveler details:", error);
-    }
-  };
+  //     // Navigate to the success page after booking is confirmed
+  //     navigate("/success", { state: { trip, travelers } });
+  //   } catch (error) {
+  //     console.error("Error submitting traveler details:", error);
+  //   }
+  // };
 
   ///
   const [checked, setChecked] = useState({
