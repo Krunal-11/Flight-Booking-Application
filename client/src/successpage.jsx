@@ -165,7 +165,10 @@ const Payments = () => {
         {/* Centered Trips Section */}
         <Grid item xs={6.5} sx={{ textAlign: "center" }}>
           <h2>Thanks for choosing us !</h2>
-          <h2>Have a safe journy</h2>
+          <h2>Have a safe journey</h2>
+          <br></br>
+          <h2>Mail Sent!</h2>
+          
         </Grid>
         {/* Right Info Section for Dos and Don'ts */}
         <Grid item xs={3.4}>
