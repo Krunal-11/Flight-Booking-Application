@@ -3,6 +3,7 @@ import { Container, Grid, TextField, Button, Typography, Paper } from '@mui/mate
 import { makeStyles } from '@mui/styles';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from './UserContext';
+import Nav from './navbar'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -101,6 +102,7 @@ const handleRegister = async () => {
 
     const data = await response.text();
     console.log('Register successful:', data);
+    setUsername(registerData.username);
 
     await handleLoginWithParams(registerData.username, registerData.password);
   } catch (error) {
@@ -111,6 +113,7 @@ const handleRegister = async () => {
 
   return (
     <Container className={classes.root}>
+      <Nav />
       <Grid container spacing={4}>
         {/* Login Section */}
         <Grid item xs={12} md={6}>
