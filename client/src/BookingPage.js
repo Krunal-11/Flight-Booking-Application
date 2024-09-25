@@ -50,7 +50,7 @@ const ViewTripsPage = () => {
       trip_id: trip.trip_id,
     }))
   );
-
+  console.log("line 53 :", trip);
   // Handle form field changes
   const handleInputChange = (index, field, value) => {
     const updatedTravelers = [...travelers];
@@ -58,7 +58,7 @@ const ViewTripsPage = () => {
     setTravelers(updatedTravelers);
   };
 
-  const handleSubmit = async (event) =>{
+  const handleSubmit = async (event) => {
     event.preventDefault();
      navigate("/payment", { state: { trip, travelers } });
   }
@@ -81,7 +81,6 @@ const ViewTripsPage = () => {
   //     if (!response.ok) {
   //       throw new Error("Failed to submit traveler details");
   //     }
-  
 
   //     // Navigate to the success page after booking is confirmed
   //     navigate("/success", { state: { trip, travelers } });
@@ -101,22 +100,22 @@ const ViewTripsPage = () => {
     setChecked({ ...checked, [event.target.name]: event.target.checked });
   };
 
-  const [trips, setTrips] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [trips, setTrips] = useState([]);
+  // const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [numberOfPeople, setNumberOfPeople] = useState(null);
+  //const [numberOfPeople, setNumberOfPeople] = useState(null);
   const currentStep = 2; // Set this to track your current step dynamically
 
-  if (error) {
-    return (
-      <Container sx={{ mt: 4 }}>
-        <Nav />
-        <Typography variant="h6" color="error" align="center">
-          {error}
-        </Typography>
-      </Container>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <Container sx={{ mt: 4 }}>
+  //       <Nav />
+  //       <Typography variant="h6" color="error" align="center">
+  //         {error}
+  //       </Typography>
+  //     </Container>
+  //   );
+  // }
 
   return (
     <Box sx={{ padding: 0 }}>
@@ -176,19 +175,6 @@ const ViewTripsPage = () => {
             </Typography>
 
             {/* Trip Details */}
-            <Typography variant="h6">Trip Details</Typography>
-            <Typography>Departure Location: {trip.departure_loc_id}</Typography>
-            <Typography>Arrival Location: {trip.arrival_loc_id}</Typography>
-            <Typography>
-              Trip Date: {new Date(trip.trip_date).toLocaleDateString()}
-            </Typography>
-            <Typography>Trip Duration: {trip.trip_duration} minutes</Typography>
-            <Typography>
-              Departure Time: {new Date(trip.departure_time).toLocaleString()}
-            </Typography>
-            <Typography>
-              Arrival Time: {new Date(trip.arrival_time).toLocaleString()}
-            </Typography>
 
             <form onSubmit={handleSubmit}>
               <Typography variant="h6" gutterBottom>
@@ -255,7 +241,7 @@ const ViewTripsPage = () => {
         </Grid>
         {/* Right Info Section for Dos and Don'ts */}
         <Grid item xs={3.4}>
-          <TicketDetails />
+          <TicketDetails trip={trip} />
 
           <Paper elevation={3} sx={{ padding: 2, marginTop: 2 }}>
             <Typography variant="h6" gutterBottom>
