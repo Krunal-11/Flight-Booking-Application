@@ -3,6 +3,19 @@ const nodemailer = require('nodemailer');
 const bcrypt = require("bcrypt");
 const { createtoken } = require("../middleware/jwt");
 
+
+exports.getEmail = async (req,res)=>{
+  const username = req.params.username;
+  try{
+    const result = await userModel.getEmail(username);
+    res.send(result[0]);
+  }
+  catch(err){
+    return err;
+  }
+}
+
+
 exports.postUserRegister = async (req, res) => {
   const { email, username, password, phone } = req.body;
   try {

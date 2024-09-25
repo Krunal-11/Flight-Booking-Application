@@ -7,6 +7,8 @@ const { middleware_user } = require("../middleware/jwt");
 router.post("/register",  userServices.postUserRegister);
 router.post("/login", userServices.postUserLogin);
 
+router.get("/email/:username",userServices.getEmail);
+
 router.post("/search-flights", userServices.postSearchFlights);
 router.get("/search-flights/:id/:people", userServices.postSearchFlightsID);
 

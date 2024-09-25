@@ -6,9 +6,12 @@ import ViewTripsPage from "./ViewTripsPage";
 import BookingPage from "./BookingPage";
 import Payment from "./Paymentprocess";
 import Success from "./successpage";
+import { UserProvider } from './UserContext';
 
 function App() {
   return (
+    <UserProvider>
+
     <Router>
       <Routes>
         <Route path="/login" element={<LoginRegisterPage />} />
@@ -20,6 +23,7 @@ function App() {
         {/* Add other routes here */}
       </Routes>
     </Router>
+    </UserProvider>
   );
 }
 

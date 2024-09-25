@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Grid, TextField, Button, Typography, Paper } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from './UserContext';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -19,6 +20,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const LoginRegisterPage = () => {
+  const { setUsername } = useUser();
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -48,7 +50,7 @@ const handleLogin = async () => {
 
     const data = await response.json();
     console.log('Login successful:', data);
-
+    setUsername(loginData.username);
     localStorage.setItem('userToken', data.token);
     navigate('/home');
   } catch (error) {

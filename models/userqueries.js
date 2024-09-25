@@ -1,5 +1,15 @@
 const db = require("../config/db");
 
+exports.getEmail = async(username)=>{
+  try{
+    const [result] = await db.query("SELECT email from users where username=? ",[username]);
+    return result;
+  }
+  catch(err){
+    throw err;
+  }
+}
+
 exports.postUserRegister = async (email, username, hash, phone) => {
   try {
     const [result] = await db.query(

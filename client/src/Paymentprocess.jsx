@@ -22,11 +22,12 @@ import {
   MenuItem,
 } from "@mui/material";
 
-import { useLocation, useNavigate } from "react-router-dom";
 import FlightCard from "./tripscard";
+import { useLocation, useNavigate } from "react-router-dom";
 import Nav from "./navbar";
 import TicketDetails from "./tripdetails";
 import Pay from "./payment";
+import { useUser } from './UserContext'; 
 
 // Step Labels for the Ticket Booking Process
 const steps = [
@@ -38,6 +39,8 @@ const steps = [
 ];
 
 const Payments = () => {
+  const { username } = useUser();
+  console.log(username);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -58,9 +61,24 @@ const Payments = () => {
     updatedTravelers[index][field] = value;
     setTravelers(updatedTravelers);
   };
-
+  const [email, setEmail] = useState('');
+  const getEmail = async () => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/user/email/${username}`);
+      if (!response.ok) {
+        throw new Error(`Error fetching email: ${response.statusText}`);
+      }
+      const data = await response.json();
+      console.log('email of user is:',data.email)
+      setEmail(data.email); // Store the fetched email in state
+      console.log('Email fetched:', data.email);
+    } catch (error) {
+      console.error('Error fetching email:', error);
+    }
+  };
   const handleSubmit = async (event) => {
-    const response = await fetch(
+    getEmail();
+    const sendemail = await fetch(
           "http://localhost:8080/api/user/sendmail",
           {
             method: "POST",
@@ -68,7 +86,8 @@ const Payments = () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              email:""
+              email:email,
+              details:"successfully booked"
             }),
           }
         );
