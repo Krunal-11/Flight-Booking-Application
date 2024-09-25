@@ -5,8 +5,16 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
 function FlightCard({ trip, onBookTrip }) {
   // Destructure trip from props
-  const { arrival_time, departure_time, iata_code, price, trip_duration } =
-    trip; // Destructure necessary properties from trip
+  const {
+    arrival_time,
+    departure_time,
+    departureCityName,
+    departureIataCode,
+    arrivalIataCode,
+    arrivalCityName,
+    price,
+    trip_duration,
+  } = trip; // Destructure necessary properties from trip
 
   return (
     <Card
@@ -59,7 +67,7 @@ function FlightCard({ trip, onBookTrip }) {
                     })}
                   </Typography>
                   <Typography variant="body2" color="textSecondary">
-                    {iata_code}
+                    {departureIataCode}
                   </Typography>
                 </Box>
                 <FlightTakeoffIcon sx={{ mx: 1, fontSize: 18 }} />
@@ -71,7 +79,7 @@ function FlightCard({ trip, onBookTrip }) {
                     })}
                   </Typography>
                   <Typography variant="body2" color="textSecondary">
-                    {iata_code}
+                    {arrivalIataCode}
                   </Typography>
                 </Box>
               </Box>
