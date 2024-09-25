@@ -72,12 +72,14 @@ const Payments = () => {
       console.log('email of user is:',data.email)
       setEmail(data.email); // Store the fetched email in state
       console.log('Email fetched:', data.email);
+      return data.email;
     } catch (error) {
       console.error('Error fetching email:', error);
     }
   };
   const handleSubmit = async (event) => {
-    getEmail();
+    const fetchedmail = await getEmail();
+    console.log('called at handle submit',email);
     const sendemail = await fetch(
           "http://localhost:8080/api/user/sendmail",
           {
@@ -86,7 +88,7 @@ const Payments = () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              email:email,
+              email:fetchedmail,
               details:"successfully booked"
             }),
           }

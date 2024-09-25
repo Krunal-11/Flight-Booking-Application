@@ -5,6 +5,7 @@ const { createtoken } = require("../middleware/jwt");
 
 
 exports.getEmail = async (req,res)=>{
+  console.log('get mail api called');
   const username = req.params.username;
   try{
     const result = await userModel.getEmail(username);
@@ -145,6 +146,7 @@ exports.sendMail = (req,res)=>{
   try{
     
 const sendConfirmationEmail = (userEmail, bookingDetails) => {
+  console.log('mailer api called with email:',userEmail);
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
