@@ -59,31 +59,34 @@ const Payments = () => {
   };
 
   // Handle form submission
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
 
-    try {
-      const response = await fetch(
-        "http://localhost:8080/api/user/travellers",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(travelers),
-        }
-      );
+  //   try {
+  //     const response = await fetch(
+  //       "http://localhost:8080/api/user/travellers",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(travelers),
+  //       }
+  //     );
 
-      if (!response.ok) {
-        throw new Error("Failed to submit traveler details");
-      }
+  //     if (!response.ok) {
+  //       throw new Error("Failed to submit traveler details");
+  //     }
 
-      // Navigate to the success page after booking is confirmed
-      navigate("/success", { state: { trip, travelers } });
-    } catch (error) {
-      console.error("Error submitting traveler details:", error);
-    }
-  };
+  //     // Navigate to the success page after booking is confirmed
+  //     navigate("/success", { state: { trip, travelers } });
+  //   } catch (error) {
+  //     console.error("Error submitting traveler details:", error);
+  //   }
+  // };
+  const handleSubmit = async(event) =>{
+    navigate('/sucess', {state:trip})
+  }
 
   ///
   const [checked, setChecked] = useState({
@@ -169,7 +172,7 @@ const Payments = () => {
         </Grid>
         {/* Right Info Section for Dos and Don'ts */}
         <Grid item xs={3.4}>
-          <TicketDetails />
+          <TicketDetails trip={trip} />
 
           <Button
             variant="contained"

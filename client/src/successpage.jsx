@@ -170,7 +170,7 @@ const Payments = () => {
         </Grid>
         {/* Right Info Section for Dos and Don'ts */}
         <Grid item xs={3.4}>
-          <TicketDetails />
+          <TicketDetails trip={trip} />
         </Grid>
       </Grid>
     </Box>
