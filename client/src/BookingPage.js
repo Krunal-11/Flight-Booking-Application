@@ -137,7 +137,7 @@ const ViewTripsPage = () => {
             {" "}
             {/* Use flexGrow to make the Paper fill available space */}
             <Typography variant="h5" align="center" gutterBottom>
-              Ticket Booking Progress
+               Booking Progress
             </Typography>
             <Stepper activeStep={currentStep} orientation="vertical">
               {steps.map((label, index) => (
