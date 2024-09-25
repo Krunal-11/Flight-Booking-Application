@@ -60,6 +60,18 @@ const Payments = () => {
   };
 
   const handleSubmit = async (event) => {
+    const response = await fetch(
+          "http://localhost:8080/api/user/sendmail",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email:""
+            }),
+          }
+        );
     console.log("my trip :", trip);
     navigate("/success", { state: { trip } });
   };
