@@ -1,5 +1,5 @@
 const userModel = require("../models/userqueries");
-
+const nodemailer = require('nodemailer');
 const bcrypt = require("bcrypt");
 const { createtoken } = require("../middleware/jwt");
 
@@ -126,6 +126,44 @@ exports.postSearchFlightsID = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+exports.sendMail = (req,res)=>{
+  const data = req.body;
+  try{
+    
+const sendConfirmationEmail = (userEmail, bookingDetails) => {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'newmailforgradious@gmail.com',
+      pass: 'wrba ytcb upft zrwn',
+    },
+  });
+
+  const mailOptions = {
+    from: 'newmailforgradious@gmail.com',
+    to: userEmail,
+    subject: 'Booking Confirmation',
+    text: `Thank you for your booking! Here are your booking details: ${bookingDetails}`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log('Error: ', error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+};
+
+sendConfirmationEmail(data.email, data.details);
+res.send('sent');
+
+  }
+  catch(err){
+    res.send(err);
+  }
+}
 
 
 exports.postBooking = (req,res)=>{
